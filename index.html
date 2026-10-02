@@ -1,0 +1,1174 @@
+<title>Cadena de Frío MediSupply</title>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+/* Consola de arquitectura: cabecera institucional, lienzo vivo a ancho completo, panel de inspección al costado. */
+:root{
+  --bg:#0D1320; --surface:#141D2E; --surface-2:#1B2739; --surface-3:#243249;
+  --ink:#E9F0FB; --ink-2:#9DB0CC; --ink-3:#6B7F9C;
+  --line:#243149; --line-2:#334765;
+  --gold:#E9B541; --gold-2:#F5CE77; --gold-soft:#36290F;
+  --tel:#4FC9D9; --tra:#9A95F5; --ana:#56C68F; --alarm:#F3794E;
+  --shadow:0 2px 4px rgba(0,0,0,.35),0 18px 44px -22px rgba(0,0,0,.8);
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --data:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --rail:214px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#F4F6FB; --surface:#FFFFFF; --surface-2:#EBF0F7; --surface-3:#DEE6F1;
+  --ink:#0E1726; --ink-2:#485973; --ink-3:#6C7E99;
+  --line:#D6DFEC; --line-2:#B6C5DA;
+  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0;
+  --tel:#0C7C8D; --tra:#4C45C6; --ana:#1F7A53; --alarm:#BE4A1E;
+  --shadow:0 1px 2px rgba(14,23,38,.07),0 14px 36px -20px rgba(14,23,38,.35);
+  color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#F4F6FB; --surface:#FFFFFF; --surface-2:#EBF0F7; --surface-3:#DEE6F1;
+  --ink:#0E1726; --ink-2:#485973; --ink-3:#6C7E99;
+  --line:#D6DFEC; --line-2:#B6C5DA;
+  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0;
+  --tel:#0C7C8D; --tra:#4C45C6; --ana:#1F7A53; --alarm:#BE4A1E;
+  --shadow:0 1px 2px rgba(14,23,38,.07),0 14px 36px -20px rgba(14,23,38,.35);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+p{margin:0}
+a{color:var(--gold);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--data);font-variant-numeric:tabular-nums}
+
+#progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:transparent}
+#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--tel),var(--gold));transition:width .1s linear}
+
+#rail{position:fixed;top:0;left:0;bottom:0;width:var(--rail);padding:calc(env(safe-area-inset-top,0px) + 18px) 14px 18px;
+  background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:12px;z-index:40;overflow-y:auto}
+.crest{display:flex;gap:9px;align-items:center}
+.crest img{width:30px;height:30px;object-fit:contain;flex:none}
+.crest .mk{width:30px;height:30px;flex:none;border-radius:4px;background:var(--gold);color:#17202F;
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1rem}
+.crest .w1{font-family:var(--data);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);line-height:1.3}
+.crest .w2{font-family:var(--display);font-weight:700;font-size:.84rem;line-height:1.15}
+#nav{display:flex;flex-direction:column;gap:1px;margin-top:2px}
+#nav a{display:flex;gap:8px;align-items:baseline;padding:6px 8px;border-radius:5px;color:var(--ink-2);
+  text-decoration:none;font-size:.82rem;line-height:1.3;border-left:2px solid transparent}
+#nav a .n{font-family:var(--data);font-size:.64rem;color:var(--ink-3);min-width:1.1em}
+#nav a:hover{background:var(--surface-2);color:var(--ink)}
+#nav a.on{color:var(--gold);background:var(--gold-soft);border-left-color:var(--gold);font-weight:600}
+#nav a.on .n{color:var(--gold)}
+.railfoot{margin-top:auto;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);padding-top:11px}
+
+.btn{font-family:var(--body);font-size:.78rem;font-weight:600;padding:7px 11px;border-radius:6px;cursor:pointer;
+  border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);transition:background .14s,border-color .14s,color .14s}
+.btn:hover{background:var(--surface-3);border-color:var(--gold)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:#17202F}
+.btn.primary:hover{background:var(--gold-2);border-color:var(--gold-2)}
+.chip{font-family:var(--body);font-size:.79rem;font-weight:600;padding:6px 13px;border-radius:99px;cursor:pointer;
+  border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);display:inline-flex;gap:7px;align-items:center}
+.chip:hover{border-color:var(--gold);color:var(--ink)}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#17202F}
+.chip i{width:8px;height:8px;border-radius:99px;flex:none}
+
+main{margin-left:var(--rail);padding-inline:clamp(14px,2.6vw,38px)}
+section{padding-block:clamp(40px,4.6vw,66px);border-bottom:1px solid var(--line);scroll-margin-top:18px}
+section:last-of-type{border-bottom:0}
+.wrap{max-width:1240px}
+.eyebrow{font-family:var(--data);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:9px}
+h2{font-size:clamp(1.55rem,2.8vw,2.25rem)}
+.lede{color:var(--ink-2);font-size:1.02rem;max-width:68ch;margin-top:11px}
+.grid{display:grid;gap:13px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 17px;min-width:0}
+.card h3{font-family:var(--body);font-size:.93rem;font-weight:700;margin-bottom:5px;letter-spacing:0}
+.card p{font-size:.87rem;color:var(--ink-2)}
+.note{background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:13px 15px;font-size:.89rem;color:var(--ink-2);margin-top:15px}
+.note b{color:var(--ink)}
+.kbd{font-family:var(--data);font-size:.72rem;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;padding:1px 5px;background:var(--surface)}
+
+/* ── portada ── */
+#inicio{padding-top:clamp(26px,3vw,40px)}
+.inst{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-bottom:13px;border-bottom:2px solid var(--gold);margin-bottom:20px}
+.inst .t{font-family:var(--data);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);line-height:1.7}
+.inst .t b{color:var(--ink)}
+h1{font-size:clamp(2rem,5vw,3.4rem)}
+h1 em{font-style:normal;color:var(--gold)}
+.hero-lede{color:var(--ink-2);font-size:clamp(.98rem,1.4vw,1.12rem);max-width:62ch;margin-top:13px}
+
+.monitor{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.mon-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:10px 15px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.mon-title{font-family:var(--data);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.mon-readout{display:flex;gap:17px;flex-wrap:wrap}
+.ro{display:flex;flex-direction:column}
+.ro .k{font-family:var(--data);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.ro .v{font-family:var(--data);font-size:1.08rem;font-weight:600;font-variant-numeric:tabular-nums}
+.ro .v.warn{color:var(--alarm)}
+#trace{width:100%;height:140px;display:block;padding:13px 15px 0}
+.mon-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:9px 15px 13px}
+.legend{display:flex;gap:13px;flex-wrap:wrap;font-size:.75rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+#alarmBadge{font-family:var(--data);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 11px;border-radius:99px;background:var(--gold-soft);color:var(--alarm);border:1px solid var(--alarm);opacity:.25;transition:opacity .2s}
+#alarmBadge.on{opacity:1}
+.stats{display:grid;gap:11px;margin-top:20px}
+@media(min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.stat .big{font-family:var(--data);font-size:clamp(1.45rem,2.8vw,1.85rem);font-weight:600;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:.82rem;font-weight:700;margin-top:3px}
+.stat .sm{font-size:.77rem;color:var(--ink-2);margin-top:2px}
+
+/* ── consola de arquitectura ── */
+.console{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:var(--shadow)}
+.ctl{display:flex;flex-wrap:wrap;gap:16px;padding:12px 15px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.ctl .grp{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.ctl .lab{font-family:var(--data);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-right:2px}
+.stage{display:grid}
+@media(min-width:1080px){.stage{grid-template-columns:1fr 282px}}
+.canvas-box{overflow:auto;padding:8px;max-height:72vh}
+#arch{display:block;min-width:1120px;width:100%;height:auto}
+.inspector{border-top:1px solid var(--line);padding:15px;display:flex;flex-direction:column;gap:9px;background:var(--surface-2);min-width:0}
+@media(min-width:1080px){.inspector{border-top:0;border-left:1px solid var(--line);max-height:72vh;overflow-y:auto}}
+.ins-k{font-family:var(--data);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.ins-n{font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1.2}
+.ins-d{font-size:.86rem;color:var(--ink-2)}
+.ins-tbl{width:100%;border-collapse:collapse;font-size:.79rem;margin-top:2px}
+.ins-tbl td{padding:5px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ins-tbl td:first-child{font-family:var(--data);font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);width:76px;padding-right:8px}
+.ins-pats{display:flex;flex-wrap:wrap;gap:5px}
+.ins-pats span{font-size:.71rem;font-weight:600;padding:3px 8px;border-radius:99px;background:var(--surface-3);color:var(--ink-2);border:1px solid var(--line-2)}
+.hint{font-size:.8rem;color:var(--ink-3)}
+
+/* nodos svg */
+.nd{cursor:pointer}
+.nd .bx{fill:var(--surface-2);stroke:var(--line-2);stroke-width:1.4;transition:fill .25s,stroke .25s,opacity .25s}
+.nd .tt{fill:var(--ink);font-family:var(--body);font-size:11.5px;font-weight:700}
+.nd .ss{fill:var(--ink-3);font-family:var(--data);font-size:8.6px}
+.nd .ac{transition:fill .25s}
+.nd:hover .bx{stroke:var(--gold);stroke-width:2}
+.nd.sel .bx{stroke:var(--gold);stroke-width:2.4;fill:var(--gold-soft)}
+.nd.hl .bx{stroke-width:2.2}
+.nd.dim{opacity:.17}
+.ed{fill:none;stroke:var(--line-2);stroke-width:1.6;transition:stroke .25s,stroke-width .25s,opacity .25s}
+.ed.dim{opacity:.1}
+.ed.act{stroke-width:2.4}
+.el{fill:var(--ink-3);font-family:var(--data);font-size:8.2px;transition:opacity .25s}
+.el.dim{opacity:.08}
+.band{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
+.band-t{font-family:var(--data);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.pt{pointer-events:none}
+
+.flowkey{display:flex;flex-wrap:wrap;gap:14px;padding:10px 15px;border-top:1px solid var(--line);font-size:.76rem;color:var(--ink-2);background:var(--surface-2)}
+.flowkey b{color:var(--ink);font-weight:600}
+.flowkey i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+/* ── costos ── */
+.bars{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 17px}
+.brow{padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.brow:last-child{border-bottom:0}
+.brow .top{display:flex;gap:10px;justify-content:space-between;align-items:baseline;font-size:.85rem}
+.brow .vals{font-family:var(--data);font-size:.78rem;color:var(--ink-2);white-space:nowrap}
+.track{margin-top:5px;display:grid;gap:3px}
+.bar{height:10px;border-radius:2px;background:var(--surface-3);overflow:hidden}
+.bar i{display:block;height:100%;width:0;transition:width .7s cubic-bezier(.22,.9,.3,1)}
+.bar.aws i{background:var(--tra)}
+.bar.gcp i{background:var(--alarm)}
+.brow .why{font-size:.82rem;color:var(--ink-2);margin-top:6px;display:none;border-left:2px solid var(--gold);padding-left:10px}
+.brow.open .why{display:block}
+.totals{display:grid;gap:11px;margin-top:14px}
+@media(min-width:620px){.totals{grid-template-columns:1fr 1fr}}
+.tot{border-radius:10px;padding:13px 15px;border:1px solid var(--line);background:var(--surface)}
+.tot .who{font-family:var(--data);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.tot .n{font-family:var(--data);font-size:1.65rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.2}
+.tot.aws .n{color:var(--tra)}.tot.gcp .n{color:var(--alarm)}
+.tot .yr{font-size:.79rem;color:var(--ink-2)}
+
+/* ── patrones ── */
+.prob{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.prow{display:grid;gap:4px 16px;padding:13px 16px;border-bottom:1px solid var(--line);cursor:pointer;
+  text-align:left;font:inherit;color:inherit;background:none;width:100%;border-left:3px solid transparent}
+.prow:last-child{border-bottom:0}
+.prow:hover{background:var(--surface-2)}
+.prow.on{background:var(--gold-soft);border-left-color:var(--gold)}
+@media(min-width:800px){.prow{grid-template-columns:1.05fr 1fr;align-items:start}.prow .fx{grid-column:1 / -1}}
+.prow .pa{font-size:.9rem;font-weight:700;display:flex;gap:9px;align-items:baseline}
+.prow .pa .nn{font-family:var(--data);font-size:.66rem;color:var(--alarm);flex:none;padding-top:2px}
+.prow .pc{font-size:.86rem;color:var(--ink-2)}
+.prow .fx{display:none;font-size:.86rem;color:var(--ink);margin-top:7px;padding-top:9px;border-top:1px dashed var(--line-2)}
+.prow.on .fx{display:block}
+.prow .fx b{color:var(--ana)}
+.prow .fx .go{font-family:var(--data);font-size:.68rem;color:var(--gold);display:block;margin-top:5px}
+.phead{display:none;padding:9px 16px;border-bottom:1px solid var(--line);background:var(--surface-2);
+  font-family:var(--data);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600;
+  gap:16px;grid-template-columns:1.05fr 1fr}
+@media(min-width:800px){.phead{display:grid}}
+.sla{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+.sla th,.sla td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+.sla th{font-family:var(--data);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.sla td.g{font-family:var(--data);font-weight:600;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pat-grid{display:grid;gap:9px;margin-top:14px}
+@media(min-width:620px){.pat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.pat-grid{grid-template-columns:repeat(3,1fr)}}
+.pat{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 13px;text-align:left;
+  font:inherit;color:inherit;cursor:pointer;display:grid;gap:3px}
+.pat:hover{border-color:var(--gold)}
+.pat.on{border-color:var(--gold);background:var(--gold-soft)}
+.pat .nm{font-size:.86rem;font-weight:700;display:flex;gap:7px;align-items:center}
+.pat .kd{width:7px;height:7px;border-radius:99px;flex:none}
+.pat .ds{font-size:.8rem;color:var(--ink-2)}
+
+/* ── figuras ── */
+.figrow{display:grid;gap:13px;margin-top:16px}
+@media(min-width:700px){.figrow{grid-template-columns:repeat(2,1fr)}}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:zoom-in;padding:0;text-align:left;font:inherit;color:inherit;display:block;width:100%}
+.fig:hover{border-color:var(--gold)}
+.fig img{display:block;width:100%;height:auto;background:#fff}
+.fig .cap{padding:9px 13px;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink-2);display:flex;gap:8px;align-items:center;justify-content:space-between}
+.cap b{font-weight:600;color:var(--ink);font-size:.84rem}
+.cap .z{font-family:var(--data);font-size:.64rem;color:var(--gold);white-space:nowrap}
+#lb{position:fixed;inset:0;background:rgba(5,9,17,.95);z-index:90;display:none;flex-direction:column}
+#lb.on{display:flex}
+#lbBar{display:flex;gap:8px;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 10px;color:#E9F0FB;flex-wrap:wrap}
+#lbTitle{font-weight:600;font-size:.9rem;margin-right:auto;min-width:0}
+#lbBar .btn{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.26);color:#E9F0FB}
+#lbStage{flex:1;overflow:hidden;position:relative;touch-action:none;cursor:grab}
+#lbStage.drag{cursor:grabbing}
+#lbImg{position:absolute;top:0;left:0;transform-origin:0 0;max-width:none;background:#fff;border-radius:4px}
+
+/* ── cronómetro ── */
+.timer{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:17px;margin-top:16px;box-shadow:var(--shadow)}
+.clock{font-family:var(--data);font-size:clamp(2.5rem,7vw,3.8rem);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.clock.over{color:var(--alarm)}
+.tbar{height:9px;border-radius:99px;background:var(--surface-3);overflow:hidden;display:flex;margin-top:13px}
+.tseg{height:100%;border-right:2px solid var(--surface);transition:background .3s}
+.tseg:last-child{border-right:0}
+.who-now{font-size:.89rem;color:var(--ink-2);margin-top:9px}
+.who-now b{color:var(--ink)}
+.split{width:100%;border-collapse:collapse;margin-top:12px;font-size:.85rem}
+.split th,.split td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line)}
+.split th{font-family:var(--data);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.split td.t{font-family:var(--data);font-variant-numeric:tabular-nums;white-space:nowrap}
+.split tr.now td{background:var(--gold-soft)}
+
+@media(max-width:900px){
+  :root{--rail:0px}
+  #rail{position:static;width:auto;flex-direction:row;flex-wrap:wrap;align-items:center;border-right:0;
+    border-bottom:1px solid var(--line);gap:10px;padding:calc(env(safe-area-inset-top,0px) + 11px) 14px 11px}
+  #nav{flex-direction:row;overflow-x:auto;gap:4px;margin:0;width:100%}
+  #nav a{white-space:nowrap;border-left:0;border-bottom:2px solid transparent;border-radius:5px 5px 0 0}
+  #nav a.on{border-left:0;border-bottom-color:var(--gold)}
+  #nav a .n{display:none}
+  .railfoot{margin:0;border-top:0;padding-top:0;flex-direction:row;gap:7px}
+  main{margin-left:0}
+  .canvas-box{max-height:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div id="progress"><i></i></div>
+
+<nav id="rail" aria-label="Secciones">
+  <div class="crest">
+    <img id="crestImg" src="img/uniandes.png" alt="">
+    <span class="mk" id="crestMk" hidden>U</span>
+    <span>
+      <span class="w1">Universidad de</span>
+      <span class="w2">los Andes</span>
+    </span>
+  </div>
+  <div id="nav"></div>
+  <div class="railfoot">
+    <button class="btn" id="themeBtn" type="button">Cambiar tema</button>
+    <button class="btn primary" id="toTimer" type="button">Cronómetro 10:00</button>
+  </div>
+</nav>
+
+<main>
+
+<section id="inicio"><div class="wrap">
+  <div class="inst">
+    <div class="t"><b>Universidad de los Andes</b><br>Facultad de Ingeniería · Departamento de Ingeniería de Sistemas y Computación</div>
+    <div class="t"><b>ARTI 4207 · Architecting for the Cloud</b><br>Maestría en Arquitecturas de TI · Proyecto 2026-20</div>
+  </div>
+  <h1>Una cámara fría sale de rango. <em>Tienen cuatro minutos.</em></h1>
+  <p class="hero-lede">MediSupply distribuye insumos médicos y producto farmacéutico bajo regulación sanitaria en ocho centros del país. Hoy se entera de una desviación térmica una hora después, porque la telemetría entra por archivo. Esta es la arquitectura que convierte esa hora en menos de cuatro minutos, y por qué ese cambio obligó a rediseñar el resto.</p>
+
+  <div class="monitor">
+    <div class="mon-head">
+      <div class="mon-title">Cámara 014 · Centro Bogotá Norte · rango certificado 2 a 8 °C</div>
+      <div class="mon-readout">
+        <div class="ro"><span class="k">Lectura</span><span class="v" id="roTemp">—</span></div>
+        <div class="ro"><span class="k">Fuera de rango</span><span class="v" id="roCount">0 / 17</span></div>
+        <div class="ro"><span class="k">Transcurrido</span><span class="v" id="roSecs">0 s</span></div>
+      </div>
+    </div>
+    <svg id="trace" viewBox="0 0 900 140" preserveAspectRatio="none" role="img" aria-label="Traza de temperatura de la cámara 014 contra la banda certificada de 2 a 8 grados"></svg>
+    <div class="mon-foot">
+      <div class="legend">
+        <span><i style="background:var(--gold-soft);border:1px solid var(--tel)"></i>Banda certificada 2 – 8 °C</span>
+        <span><i style="background:var(--tel)"></i>Lectura en rango</span>
+        <span><i style="background:var(--alarm)"></i>Lectura fuera de rango</span>
+      </div>
+      <span id="alarmBadge">Alarma · 17 lecturas · 240 s</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="big" data-count="2500">0</div><div class="lbl">pedidos diarios</div><div class="sm">120 operaciones por minuto hoy, 300 proyectadas</div></div>
+    <div class="stat"><div class="big" data-count="2.8" data-dec="1" data-suf=" M">0</div><div class="lbl">eventos de telemetría al día</div><div class="sm">480 cámaras, una lectura cada 15 segundos</div></div>
+    <div class="stat"><div class="big" data-count="126" data-suf=" M">0</div><div class="lbl">filas de temperatura</div><div class="sm">hoy viven en el mismo esquema que la venta</div></div>
+    <div class="stat"><div class="big" data-count="19">0</div><div class="lbl">meses sin probar la réplica</div><div class="sm">conmutación manual, un solo centro de cómputo</div></div>
+  </div>
+</div></section>
+
+<section id="problema"><div class="wrap">
+  <div class="eyebrow">Problemática</div>
+  <h2>Siete dolores, y ninguno se arregla comprando servidores</h2>
+  <p class="lede">Esta es la lista completa de lo que falla hoy y lo que produce cada falla. Pulsen cualquier fila: se abre cómo queda resuelto y el lienzo de la sección siguiente enciende los componentes que lo resuelven.</p>
+
+  <div class="prob">
+    <div class="phead"><span>Problema actual</span><span>Consecuencia</span></div>
+    <div id="probList"></div>
+  </div>
+
+  <div class="grid g4" style="margin-top:20px">
+    <div class="card"><h3>Crecer sin reconstruir</h3><p>Duplicar el volumen de pedidos en dos años y abrir operación en un segundo país, con capacidad elástica en lugar de compra de hardware.</p></div>
+    <div class="card"><h3>Vender con promesa cumplida</h3><p>Disponibilidad real para el cliente y reserva atómica por lote y fecha de vencimiento, con criterio de primero en vencer, primero en salir.</p></div>
+    <div class="card"><h3>Proteger el producto y el cumplimiento</h3><p>Desviación térmica detectada en minutos, no en horas, y trazada con evidencia suficiente para un auditor sanitario.</p></div>
+    <div class="card"><h3>Eliminar el punto único de falla</h3><p>El centro de cómputo único y el fin de soporte del motor de base de datos son, juntos, el disparador ejecutivo del proyecto.</p></div>
+  </div>
+
+  <h3 style="font-size:1.15rem;margin-top:26px">Cuatro restricciones que condicionan el diseño</h3>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="card"><h3>Los sensores no son nuestros</h3><p>Los instala y opera un proveedor externo. No controlamos el dispositivo, ni su firmware, ni la cadencia con que reporta.</p></div>
+    <div class="card"><h3>Residencia del dato</h3><p>Información de pacientes y trazabilidad sanitaria bajo la Ley 1581 de 2012 y la reglamentación del Invima. Ninguna nube tiene región en Colombia.</p></div>
+    <div class="card"><h3>El operador logístico no migra</h3><p>Su API privada se queda on-premise, así que hace falta un egreso controlado con dirección fija e identidad mutua.</p></div>
+    <div class="card"><h3>Agnosticismo exigido</h3><p>La arquitectura debe poder ejecutarse en al menos dos nubes, por lo que se expresa en estándares abiertos y no en productos.</p></div>
+  </div>
+
+  <h3 style="font-size:1.15rem;margin-top:26px">Lo que la solución debe sostener</h3>
+  <p class="lede" style="margin-top:8px">2 500 pedidos diarios en dos picos, con 120 operaciones por minuto hoy y 300 proyectadas · 2 000 usuarios activos al mes y unos 400 concurrentes en pico · 15 millones de solicitudes mensuales a las pasarelas · 2,8 millones de eventos de telemetría al día desde 480 cámaras · 1,2 TB en el motor relacional, 126 millones de filas de telemetría y 7,6 TB de documentos · 18 000 referencias con precio por convenio.</p>
+  <table class="sla">
+    <thead><tr><th>Servicio</th><th>Objetivo</th><th>Métrica de referencia</th></tr></thead>
+    <tbody>
+      <tr><td>Disponibilidad del plano transaccional</td><td class="g">≥ 99,9 % mensual</td><td>Monitoreo sintético desde dos ubicaciones</td></tr>
+      <tr><td>Consulta de disponibilidad de producto</td><td class="g">p95 &lt; 400 ms</td><td>Desde la pasarela hasta la respuesta</td></tr>
+      <tr><td>Compromiso de venta con reserva de lote</td><td class="g">p95 &lt; 900 ms</td><td>Transacción completa confirmada</td></tr>
+      <tr><td>Alarma por desviación térmica</td><td class="g">&lt; 4 minutos</td><td>Desde la lectura del sensor hasta el aviso</td></tr>
+      <tr><td>Silencio de una cámara</td><td class="g">&lt; 4 minutos</td><td>Desde la última lectura hasta el aviso de sensor caído</td></tr>
+      <tr><td>Consulta del módulo analítico</td><td class="g">p95 &lt; 5 s</td><td>Sobre el almacén analítico</td></tr>
+      <tr><td>Recuperación ante falla de zona</td><td class="g">RTO 15 min · RPO 1 min</td><td>Prueba trimestral documentada</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section id="arquitectura"><div class="wrap">
+  <div class="eyebrow">Consola de arquitectura</div>
+  <h2>Toda la arquitectura, viva y navegable</h2>
+  <p class="lede">Un solo lienzo con los tres planos. Cambien el <b>proveedor</b> y verán cómo cada posición conserva su sitio mientras cambia el servicio que la ocupa: eso es el agnosticismo, no una declaración. Cambien el <b>flujo</b> y el resto del dibujo se apaga para que se siga el recorrido. Pulsen cualquier componente para inspeccionarlo.</p>
+
+  <div class="console">
+    <div class="ctl">
+      <div class="grp"><span class="lab">Vista</span>
+        <button class="chip on" type="button" data-view="tobe">Arquitectura objetivo</button>
+        <button class="chip" type="button" data-view="asis">Arquitectura actual</button>
+      </div>
+      <div class="grp" id="lensGrp"><span class="lab">Proveedor</span>
+        <button class="chip on" type="button" data-lens="agn">Agnóstico</button>
+        <button class="chip" type="button" data-lens="aws">AWS · us-east-1</button>
+        <button class="chip" type="button" data-lens="gcp">Google Cloud · us-central1</button>
+      </div>
+      <div class="grp" id="flowGrp"><span class="lab">Flujo</span>
+        <button class="chip on" type="button" data-flow="all">Todos</button>
+        <button class="chip" type="button" data-flow="frio"><i style="background:var(--tel)"></i>Cadena de frío</button>
+        <button class="chip" type="button" data-flow="pedido"><i style="background:var(--tra)"></i>Pedido</button>
+        <button class="chip" type="button" data-flow="ana"><i style="background:var(--ana)"></i>Analítico</button>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="canvas-box">
+        <svg id="arch" role="img" aria-label="Arquitectura objetivo de MediSupply con tres planos de red: telemetría, transaccional y analítico"></svg>
+      </div>
+      <aside class="inspector" id="insp">
+        <div class="ins-k">Inspector</div>
+        <div class="ins-n" id="insN">Pulse un componente</div>
+        <p class="ins-d" id="insD">Cada caja del lienzo guarda qué resuelve, qué patrón materializa y qué servicio la ocupa en cada nube. Pase el cursor para ver el nombre y pulse para fijarlo aquí.</p>
+        <div id="insX" hidden>
+          <table class="ins-tbl">
+            <tbody>
+              <tr><td>Agnóstico</td><td id="insAgn"></td></tr>
+              <tr><td>AWS</td><td id="insAws"></td></tr>
+              <tr><td>Google</td><td id="insGcp"></td></tr>
+            </tbody>
+          </table>
+          <div class="ins-k" style="margin-top:10px">Patrones que materializa</div>
+          <div class="ins-pats" id="insP"></div>
+        </div>
+      </aside>
+    </div>
+    <div class="flowkey">
+      <span><i style="background:var(--tel)"></i><b>Cadena de frío</b> · del sensor del tercero a la alarma</span>
+      <span><i style="background:var(--tra)"></i><b>Pedido</b> · de la consulta al compromiso de venta</span>
+      <span><i style="background:var(--ana)"></i><b>Analítico</b> · del cambio confirmado al asistente</span>
+      <span class="hint">Los puntos que viajan por las líneas son los datos moviéndose.</span>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card"><h3>Plano de telemetría</h3><p>No recibe conexiones del exterior. Un pod conector se suscribe hacia afuera al flujo del proveedor, con cuota y compartimento propios: una tormenta de eventos no puede consumir la capacidad de la toma de pedido.</p></div>
+    <div class="card"><h3>Plano transaccional</h3><p>Dos entradas separadas. El portal por Internet con red de contenido, cortafuegos y pasarela pública. La intranet por enlace dedicado, balanceador sin dirección pública y pasarela privada.</p></div>
+    <div class="card"><h3>Plano analítico</h3><p>Sin punto de entrada al exterior. Se alimenta de los eventos de cambio del motor relacional y alimenta el asistente que sugiere reposición al comercial.</p></div>
+  </div>
+  <div class="note"><b>La región la define la ley, no la latencia.</b> Ninguna nube tiene región en Colombia, así que cualquier opción implica transferencia internacional. El numeral 3.2 de la Circular Externa 005 de 2017 de la Superintendencia de Industria y Comercio lista los países con nivel adecuado de protección: Estados Unidos figura, Brasil no. La región que parecía más natural por cercanía es la que exige la declaración de conformidad previa. Y de paso resultó más barata y con menor latencia desde Bogotá.</div>
+</div></section>
+
+<section id="patrones"><div class="wrap">
+  <div class="eyebrow">Patrones</div>
+  <h2>Ocho de aplicación, once de datos, todos sobre el lienzo</h2>
+  <p class="lede">Pulsen un patrón y el diagrama de arriba enciende los componentes que lo materializan. Ningún patrón está aquí por catálogo: cada uno responde a una cifra o a una restricción del caso.</p>
+  <div class="grp" style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
+    <button class="chip on" type="button" data-filter="all">Todos · 19</button>
+    <button class="chip" type="button" data-filter="app"><i style="background:var(--tra)"></i>Aplicación · 8</button>
+    <button class="chip" type="button" data-filter="dat"><i style="background:var(--ana)"></i>Datos y almacenamiento · 11</button>
+  </div>
+  <div class="pat-grid" id="pats"></div>
+</div></section>
+
+<section id="costos"><div class="wrap">
+  <div class="eyebrow">Costos</div>
+  <h2>Dónde se va el dinero en cada nube</h2>
+  <p class="lede">Precios de lista de septiembre de 2026, sin descuentos por compromiso de uso. Pulsen cualquier fila para ver qué la explica.</p>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
+    <button class="chip on" type="button" data-sort="dif">Ordenar por diferencia</button>
+    <button class="chip" type="button" data-sort="aws">Por costo en AWS</button>
+    <button class="chip" type="button" data-sort="gcp">Por costo en Google Cloud</button>
+  </div>
+  <div class="bars" id="bars"></div>
+  <div class="totals">
+    <div class="tot aws"><div class="who">AWS · us-east-1</div><div class="n">USD 2 961 <span style="font-size:.88rem;font-weight:400;color:var(--ink-2)">/ mes</span></div><div class="yr">Anual, con banda de ±15 %: USD 30 207 – 40 868</div></div>
+    <div class="tot gcp"><div class="who">Google Cloud · us-central1</div><div class="n">USD 3 499 <span style="font-size:.88rem;font-weight:400;color:var(--ink-2)">/ mes</span></div><div class="yr">Anual, con banda de ±15 %: USD 35 688 – 48 284</div></div>
+  </div>
+  <div class="note"><b>Lo que más pesa no se dibuja.</b> Las líneas más caras no son el cómputo ni la base de datos: son la red privada en AWS —endpoints, NAT por zona y dos enlaces dedicados— y la gestión de API en Google Cloud, que se factura por hora de entorno aunque no haya tráfico.</div>
+</div></section>
+
+<section id="figuras"><div class="wrap">
+  <div class="eyebrow">Documento</div>
+  <h2>Las figuras del entregable, con zoom</h2>
+  <p class="lede">Las mismas vistas que van en el documento escrito, en su versión de alta resolución. Pulsen para abrirlas y arrastrar.</p>
+  <div class="figrow">
+    <button class="fig" type="button" data-src="img/tobe.png" data-t="Figura 2 · Arquitectura objetivo agnóstica"><img src="img/tobe.png" alt="Arquitectura objetivo agnóstica" loading="lazy"><span class="cap"><b>Figura 2 · TO-BE agnóstica</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/asis.png" data-t="Figura 1 · Arquitectura actual (AS-IS)"><img src="img/asis.png" alt="Arquitectura actual" loading="lazy"><span class="cap"><b>Figura 1 · AS-IS</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/aws.png" data-t="Blueprint AWS · us-east-1"><img src="img/aws.png" alt="Arquitectura sobre AWS" loading="lazy"><span class="cap"><b>Blueprint AWS</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/gcp.png" data-t="Blueprint Google Cloud · us-central1"><img src="img/gcp.png" alt="Arquitectura sobre Google Cloud" loading="lazy"><span class="cap"><b>Blueprint Google Cloud</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/pat_app.png" data-t="Figura 3 · Patrones de aplicación"><img src="img/pat_app.png" alt="Patrones de aplicación" loading="lazy"><span class="cap"><b>Figura 3 · Patrones de aplicación</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/pat_dat.png" data-t="Figura 4 · Patrones de datos"><img src="img/pat_dat.png" alt="Patrones de datos" loading="lazy"><span class="cap"><b>Figura 4 · Patrones de datos</b><span class="z">Ampliar</span></span></button>
+  </div>
+</div></section>
+
+<section id="cronometro"><div class="wrap">
+  <div class="eyebrow">Sustentación</div>
+  <h2>Diez minutos, cuatro voces</h2>
+  <p class="lede">El cronómetro marca el bloque que corre y a quién le toca. Si la franja se enciende de más, el bloque va largo.</p>
+  <div class="timer">
+    <div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap">
+      <div class="clock" id="clock">10:00</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn primary" id="tStart" type="button">Iniciar</button>
+        <button class="btn" id="tReset" type="button">Reiniciar</button>
+      </div>
+    </div>
+    <div class="tbar" id="tbar"></div>
+    <div class="who-now" id="whoNow">Sin iniciar. Abre <b>Ariel</b>, con el contexto y los motivadores.</div>
+    <table class="split"><thead><tr><th>Presenta</th><th>Bloque</th><th>Ventana</th></tr></thead><tbody id="splitBody"></tbody></table>
+  </div>
+  <div class="note"><b>Atajos:</b> <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span> cambian el flujo del lienzo, <span class="kbd">A</span> alterna proveedor, <span class="kbd">Esc</span> cierra el visor de figuras y, dentro del visor, <span class="kbd">+</span> <span class="kbd">−</span> <span class="kbd">0</span> controlan el zoom.</div>
+</div></section>
+
+<section id="cierre"><div class="wrap">
+  <div class="eyebrow">Cierre</div>
+  <h2>Lo que nos llevamos del proyecto</h2>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>La región la define la ley, no la latencia</h3><p>La primera intuición fue São Paulo por cercanía. La Circular 005 mostró que Estados Unidos figura entre los países con nivel adecuado de protección y Brasil no. La región más lejana además era más barata.</p></div>
+    <div class="card"><h3>El agnosticismo termina en el detalle de cada servicio</h3><p>El diseño se tradujo casi uno a uno, pero cada nube obligó a un ajuste: Debezium dentro del clúster porque Datastream no publica en Pub/Sub, y Apigee porque API Gateway de Google no alcanza backends privados.</p></div>
+    <div class="card"><h3>El costo está en los componentes que no se dibujan</h3><p>Las líneas más caras no fueron el cómputo ni la base de datos, sino la red privada en AWS y la gestión de API en Google Cloud: endpoints, NAT por zona y entornos facturados por hora.</p></div>
+    <div class="card"><h3>El problema no era de capacidad, era de estructura</h3><p>Por eso la propuesta no traslada módulos a la nube: separa planos, establece fronteras por dominio y convierte la telemetría en un flujo evaluado con estado.</p></div>
+  </div>
+  <p class="lede" style="margin-top:20px">Ariel Leonardo Molina Viteri · Camilo Alejandro Nossa Calderón · David Santiago Guasca Nova · David Felipe Laverde Parra<br>
+  Maestría en Arquitecturas de Tecnologías de Información · Universidad de los Andes · Semestre 2026-20</p>
+</div></section>
+
+</main>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Visor de figuras">
+  <div id="lbBar">
+    <span id="lbTitle"></span>
+    <button class="btn" id="lbOut" type="button">− Zoom</button>
+    <button class="btn" id="lbIn" type="button">+ Zoom</button>
+    <button class="btn" id="lbFit" type="button">Ajustar</button>
+    <span class="mono" id="lbPct" style="font-size:.78rem;min-width:4ch">100%</span>
+    <button class="btn" id="lbClose" type="button">Cerrar</button>
+  </div>
+  <div id="lbStage"><img id="lbImg" alt=""></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()};
+
+/* escudo opcional: si no está img/uniandes.png, se usa la marca tipográfica */
+var ci=$("#crestImg");
+ci.addEventListener("error",function(){ ci.remove(); $("#crestMk").hidden=false });
+if(ci.complete && !ci.naturalWidth){ ci.remove(); $("#crestMk").hidden=false }
+
+/* ───── navegación ───── */
+var SEC=[["inicio","Portada"],["problema","Problemática"],["arquitectura","Arquitectura"],["patrones","Patrones"],["costos","Costos"],
+         ["figuras","Figuras"],["cronometro","Sustentación"],["cierre","Cierre"]];
+var nav=$("#nav");
+SEC.forEach(function(s,i){var a=document.createElement("a");a.href="#"+s[0];
+  a.innerHTML='<span class="n">'+String(i+1).padStart(2,"0")+'</span><span>'+s[1]+'</span>';nav.appendChild(a)});
+var links=$$("#nav a"), secs=SEC.map(function(s){return document.getElementById(s[0])});
+function onScroll(){
+  var y=window.scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  $("#progress i").style.width=(h>0?Math.min(100,y/h*100):0)+"%";
+  var cur=0; secs.forEach(function(el,i){ if(el&&el.getBoundingClientRect().top<=innerHeight*0.32) cur=i });
+  links.forEach(function(a,i){a.classList.toggle("on",i===cur)});
+}
+addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll();
+$("#themeBtn").addEventListener("click",function(){
+  var r=document.documentElement,now=r.getAttribute("data-theme");
+  if(!now) now=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  r.setAttribute("data-theme",now==="dark"?"light":"dark");
+  drawTrace(); recolor();
+});
+$("#toTimer").addEventListener("click",function(){document.getElementById("cronometro").scrollIntoView({behavior:reduce?"auto":"smooth"})});
+
+/* ───── contadores ───── */
+$$("[data-count]").forEach(function(el){
+  var end=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||"0",10),suf=el.dataset.suf||"";
+  var fmt=function(v){return v.toLocaleString("es-CO",{minimumFractionDigits:dec,maximumFractionDigits:dec})+suf};
+  if(reduce){el.textContent=fmt(end);return}
+  el.textContent=fmt(0); var seen=false;
+  new IntersectionObserver(function(es,ob){es.forEach(function(e){
+    if(!e.isIntersecting||seen)return; seen=true; ob.disconnect();
+    var t0=performance.now();
+    (function tick(t){var p=Math.min(1,(t-t0)/900);el.textContent=fmt(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  })},{threshold:.4}).observe(el);
+});
+
+/* ───── monitor ───── */
+var TR={W:900,H:140,pad:{t:10,r:12,b:14,l:30},min:-1,max:14,n:46};
+var vals=[],outRun=0,secs15=0,alarmed=false;
+for(var i0=0;i0<TR.n;i0++) vals.push(4.6+Math.sin(i0/3)*0.5+(Math.random()-0.5)*0.5);
+function yF(v){var p=TR.pad;return p.t+(TR.max-v)/(TR.max-TR.min)*(TR.H-p.t-p.b)}
+function xF(i){var p=TR.pad;return p.l+i/(TR.n-1)*(TR.W-p.l-p.r)}
+function drawTrace(){
+  var svg=$("#trace");if(!svg)return;
+  var cT=css("--tel"),cS=css("--gold-soft"),cA=css("--alarm"),cI=css("--ink-3"),cL=css("--line");
+  var o='<rect x="'+xF(0)+'" y="'+yF(8)+'" width="'+(xF(TR.n-1)-xF(0))+'" height="'+(yF(2)-yF(8))+'" fill="'+cS+'" stroke="'+cT+'" stroke-width="1"/>';
+  [12,8,4,0].forEach(function(t){
+    o+='<line x1="'+xF(0)+'" y1="'+yF(t)+'" x2="'+xF(TR.n-1)+'" y2="'+yF(t)+'" stroke="'+cL+'" stroke-width="1" stroke-dasharray="2 4"/>'
+     +'<text x="'+(TR.pad.l-6)+'" y="'+(yF(t)+3.4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="9" fill="'+cI+'">'+t+'°</text>';
+  });
+  o+='<path d="'+vals.map(function(v,i){return (i?"L":"M")+xF(i).toFixed(1)+" "+yF(v).toFixed(1)}).join(" ")
+   +'" fill="none" stroke="'+cT+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  var last=vals[vals.length-1],bad=last<2||last>8;
+  o+='<circle cx="'+xF(TR.n-1)+'" cy="'+yF(last)+'" r="4.4" fill="'+(bad?cA:cT)+'"/>';
+  svg.innerHTML=o;
+}
+function monStep(){
+  var last=vals[vals.length-1],d;
+  if(alarmed) d=-0.8; else if(outRun>0) d=0.26+Math.random()*0.18; else d=(Math.random()-0.42)*0.9;
+  var v=Math.max(-0.5,Math.min(13.5,last+d));
+  if(!alarmed&&outRun===0&&Math.random()<0.1) v=8.25;
+  vals.push(v);vals.shift();
+  if(v>8||v<2){outRun++;secs15+=15}else{outRun=0;secs15=0;alarmed=false;$("#alarmBadge").classList.remove("on")}
+  if(outRun>=17&&!alarmed){alarmed=true;$("#alarmBadge").classList.add("on")}
+  $("#roTemp").textContent=v.toFixed(1)+" °C"; $("#roTemp").classList.toggle("warn",v>8||v<2);
+  $("#roCount").textContent=Math.min(outRun,17)+" / 17"; $("#roCount").classList.toggle("warn",outRun>0);
+  $("#roSecs").textContent=Math.min(secs15,240)+" s"; $("#roSecs").classList.toggle("warn",secs15>=240);
+  if(alarmed&&outRun>22){outRun=0;secs15=0;alarmed=false;$("#alarmBadge").classList.remove("on")}
+  drawTrace();
+}
+drawTrace();
+if(reduce){ $("#alarmBadge").classList.add("on"); $("#roTemp").textContent="9.4 °C"; $("#roTemp").classList.add("warn");
+  $("#roCount").textContent="17 / 17"; $("#roCount").classList.add("warn"); $("#roSecs").textContent="240 s"; $("#roSecs").classList.add("warn");
+} else { monStep(); setInterval(monStep,480) }
+
+/* ═════ CONSOLA DE ARQUITECTURA ═════ */
+var W=132,H=50;
+function N(id,x,y,band,agn,aws,gcp,sa,sw,sg,desc,pats){
+  return {id:id,x:x,y:y,w:W,h:H,band:band,L:{agn:agn,aws:aws,gcp:gcp},S:{agn:sa,aws:sw,gcp:sg},desc:desc,pats:pats||[]};
+}
+var TOBE=[
+/* telemetría */
+N("prov",36,112,"tel","Proveedor de sensores","Proveedor de sensores","Proveedor de sensores","tercero","tercero","tercero",
+  "Las 480 cámaras las instala y opera un tercero que expone la señal en tiempo real. MediSupply no controla el dispositivo, ni su firmware, ni la cadencia con que reporta.",[]),
+N("con",200,112,"tel","Pod conector","EKS · conector","GKE · conector","suscripción mTLS","suscripción mTLS","suscripción mTLS",
+  "Se suscribe hacia afuera al flujo del proveedor con identidad mutua. Aquí vive la traducción del modelo del tercero al nuestro: cambiar de proveedor de instrumentación toca este componente y ninguno más.",["Anti-Corruption Layer","Bulkhead"]),
+N("ing",364,112,"tel","Pod de ingesta","EKS · ingesta","GKE · ingesta","deduplica","deduplica","deduplica",
+  "Normaliza la lectura y la deduplica por cámara y marca de tiempo del sensor, porque el proveedor puede reenviar o entregar fuera de orden. Cada evento lleva dos marcas de tiempo: la del sensor y la de recepción.",["Producer–Consumer","Anti-Corruption Layer"]),
+N("flu",528,112,"tel","Flujo de lecturas","Kinesis Data Streams","Pub/Sub","clave = cámara","clave de partición","clave de orden",
+  "Flujo particionado por cámara, de modo que todas las lecturas de una misma cámara caen en el mismo consumidor y en orden. Sin esa garantía, dos réplicas contarían la misma desviación por separado.",["Producer–Consumer","Publish–Subscribe"]),
+N("fri",692,112,"tel","Pod de cadena de frío","EKS · pod frío","GKE · pod frío","evalúa la regla","evalúa la regla","evalúa la regla",
+  "Aplica dos reglas: diecisiete lecturas consecutivas fuera del rango de 2 a 8 °C, y sesenta segundos sin recibir nada de una cámara. La ausencia de dato es tan grave como el dato malo.",["Producer–Consumer","Bulkhead"]),
+N("ala",856,112,"tel","Tema de alarma","Amazon SNS","Pub/Sub · tema alarma","un emisor, varios destinos","un emisor, varios destinos","un emisor, varios destinos",
+  "La decimoséptima lectura llega a los 240 segundos: dieciséis intervalos de quince. La alarma se publica una vez y la consumen dos destinos distintos sin que el emisor los conozca.",["Publish–Subscribe"]),
+N("ope",1020,112,"tel","Operario del centro","Aviso por SMS y correo","Cloud Run functions","canal en tiempo real","suscripción de SNS","función de aviso",
+  "El destino que cierra el acuerdo de nivel de servicio: menos de cuatro minutos desde la lectura del sensor hasta el aviso al operario del centro de distribución.",[]),
+N("ser",528,186,"tel","Almacén de series","Timestream for InfluxDB","Bigtable","13 meses","segundo consumidor","escrito por Dataflow",
+  "Un segundo consumidor del mismo flujo escribe la serie cruda completa, con trece meses de retención para la auditoría sanitaria. Hoy esos 126 millones de filas viven en el esquema transaccional.",["Time-Series Store"]),
+N("est",692,186,"tel","Estado por cámara","Amazon DynamoDB","Firestore","contador atómico","clave de partición = cámara","documento por cámara",
+  "El contador de lecturas fuera de rango no vive en la memoria del pod: se lee, se incrementa y se reescribe de forma atómica. Así la regla sobrevive a un reinicio, a un reescalado o a un despliegue.",["Key-Value Store"]),
+/* transaccional */
+N("cli",36,346,"tra","Clientes","Clientes","Clientes","Internet","Internet","Internet",
+  "Clínicas, hospitales y cadenas de farmacia. Hoy no acceden al sistema: piden por teléfono o correo a un comercial que consulta un listado de la noche anterior.",[]),
+N("cdn",196,346,"tra","Red de contenido","Amazon CloudFront","Cloud CDN","caché de borde","caché de borde","balanceador global",
+  "Sirve el portal como contenido estático desde el borde, de modo que la carga de la interfaz no consume capacidad del clúster ni de la base de datos.",["Static Content Hosting","Almacenamiento por objetos"]),
+N("waf",346,346,"tra","Cortafuegos de aplicación","AWS WAF","Cloud Armor","reglas OWASP","reglas OWASP","reglas OWASP",
+  "Filtra el tráfico del canal público antes de que llegue a la pasarela. Es la primera de las dos capas que separan Internet de la intranet corporativa.",[]),
+N("apub",496,346,"tra","Pasarela pública","API Gateway · API pública","Apigee · entorno público","valida testigo OIDC","valida testigo OIDC","valida testigo OIDC",
+  "Punto de entrada único del canal público: autenticación, control de tasa y observación del tráfico. Valida el testigo de acceso que emite el proveedor de identidad.",["API Gateway"]),
+N("intr",36,560,"tra","Fuerza comercial y operación","Fuerza comercial y operación","Fuerza comercial y operación","intranet corporativa","intranet corporativa","intranet corporativa",
+  "Comerciales, operarios de bodega y el módulo analítico entran por la red corporativa, no por Internet, y se autorizan por rol del directorio corporativo.",[]),
+N("dx",196,560,"tra","Enlace dedicado","Direct Connect · Bogotá","Partner Interconnect","2 conexiones de 1 Gbps","Equinix BG1","2 adjuntos de VLAN",
+  "Conectividad privada desde Bogotá hacia la región, con identidad mutua. El punto de presencia alcanza cualquier región del proveedor, así que no ata la elección de región.",[]),
+N("alb",346,560,"tra","Balanceador interno","ALB interno","Balanceador interno","sin dirección pública","sin dirección pública","sin dirección pública",
+  "Distribuye el tráfico de la intranet sin exponer ninguna dirección al exterior. Separar las dos entradas evita que una regla del canal público abra una puerta hacia la intranet.",[]),
+N("apriv",496,560,"tra","Pasarela privada","API Gateway · API privada","Apigee · entorno interno","autoriza por rol","alcanzada por VPC Link","alcanzada por PSC",
+  "Segunda instancia del mismo patrón, con otra superficie de exposición y otra identidad: autoriza por rol del directorio corporativo en lugar de por testigo público.",["API Gateway"]),
+N("bffp",652,322,"tra","Fachada del portal","EKS · BFF portal","GKE · BFF portal","disponibilidad y precio","disponibilidad y precio","disponibilidad y precio",
+  "El portal necesita disponibilidad agregada y precio de convenio en una sola llamada. Sin una fachada por consumidor, cada cambio de pantalla obligaría a tocar un servicio compartido.",["Backend for Frontend"]),
+N("bffc",652,400,"tra","Fachada comercial","EKS · BFF comercial","GKE · BFF comercial","catálogo y sugerencia","catálogo y sugerencia","catálogo y sugerencia",
+  "Atiende a la fuerza comercial: catálogo, disponibilidad y la sugerencia de reposición que devuelve el asistente con la cita de su origen.",["Backend for Frontend"]),
+N("bffo",652,478,"tra","Fachada de operación","EKS · BFF operación","GKE · BFF operación","alarma y despacho","alarma y despacho","alarma y despacho",
+  "La terminal de bodega necesita lote, ubicación y la alarma térmica en tiempo real. Es el destino de la alarma dentro del plano transaccional.",["Backend for Frontend"]),
+N("bffa",652,556,"tra","Fachada analítica","EKS · BFF analítico","GKE · BFF analítico","consultas agregadas","consultas agregadas","consultas agregadas",
+  "Única puerta del módulo analítico hacia el almacén. El plano analítico no expone ningún punto de entrada propio al exterior.",["Backend for Frontend"]),
+N("ven",806,322,"tra","Pod de ventas","Amazon EKS","Google Kubernetes Engine","compromiso de venta","pod de dominio","pod de dominio",
+  "Toma el pedido y abre la transacción. El compromiso y la reserva ocurren dentro de una sola transacción relacional: a 300 operaciones por minuto, la coordinación distribuida añade complejidad sin beneficio.",["Contenedores con descubrimiento","CQRS"]),
+N("inv",806,400,"tra","Pod de inventario","Amazon EKS","Google Kubernetes Engine","reserva FEFO","pod de dominio","pod de dominio",
+  "Reserva existencias por lote y fecha de vencimiento con criterio de primero en vencer, primero en salir. También recibe la orden de acordonar un lote cuando entra una alarma térmica.",["Contenedores con descubrimiento","CQRS"]),
+N("cat",806,478,"tra","Pod de catálogo","Amazon EKS","Google Kubernetes Engine","solo lectura","pod de dominio","pod de dominio",
+  "Resuelve el 85 % de las operaciones: consultas de disponibilidad y precio. Es el único componente que toca la caché, y nunca la usa para comprometer una venta.",["Contenedores con descubrimiento","Caching","CQRS"]),
+N("desp",806,556,"tra","Pod de despacho","Amazon EKS","Google Kubernetes Engine","hoja de ruta","pod de dominio","pod de dominio",
+  "Consume el trabajo encolado y arma la hoja de ruta. Encolar en lugar de ejecutar dentro de la transacción es lo que permite absorber los dos picos diarios sin dimensionar todo para el pico.",["Contenedores con descubrimiento","Producer–Consumer"]),
+N("cola",806,634,"tra","Cola de trabajos","Amazon SQS","Suscripción de Pub/Sub","con reintentos","cola de mensajes fallidos","con reintentos",
+  "Desacopla el compromiso de venta del trabajo de despacho. Si el despacho falla, el pedido ya está confirmado y el trabajo se reintenta sin perderse.",["Producer–Consumer"]),
+N("db",1004,346,"tra","Motor relacional","RDS para PostgreSQL · Multi-AZ","Cloud SQL · Enterprise Plus","escrituras","réplica síncrona","alta disponibilidad regional",
+  "Único lugar donde se escribe. La reserva por lote y vencimiento es atómica aquí, y de su registro de transacciones sale la captura de cambios hacia el lago.",["CQRS","Almacenamiento por bloques"]),
+N("rep",1004,452,"tra","Réplicas de lectura","Réplica de lectura de RDS","Grupo de lectura de Cloud SQL","lecturas","lecturas","lecturas",
+  "Absorben las consultas de catálogo para que el primario quede libre de escribir. Es lo que hace alcanzable el objetivo de 400 milisegundos en el percentil 95.",["CQRS"]),
+N("cch",1004,558,"tra","Caché distribuida","ElastiCache for Valkey","Memorystore for Valkey","precio y disponibilidad","precio y disponibilidad","precio y disponibilidad",
+  "Guarda precio por convenio y disponibilidad agregada, con tolerancia a unos segundos de desfase. Sirve para navegar el catálogo; el compromiso de venta nunca la lee.",["Caching"]),
+N("cdc",1180,346,"tra","Captura de cambios","EventBridge Pipes y Firehose","Debezium en el clúster","lee el registro","desde la tabla de salida","Datastream no publica en Pub/Sub",
+  "Publica cada cambio confirmado leyendo el registro de transacciones, no consultando las tablas. Por eso no compite con la toma de pedido y además ve los borrados.",["Change Data Capture"]),
+N("nat",1004,664,"tra","Egreso con dirección fija","NAT Gateway","Cloud NAT","IP en lista blanca","una salida, IP fija","una salida, IP fija",
+  "Única salida hacia el operador logístico, con dirección fija en lista blanca y túnel de identidad mutua. Aísla el resto de la plataforma de ese sistema heredado.",["Anti-Corruption Layer"]),
+N("onp",1180,664,"tra","Operador logístico","Operador logístico","Operador logístico","on-premise","API privada","API privada",
+  "No se migra. Su API privada se queda en el centro de datos del operador, así que la arquitectura contempla un egreso controlado en lugar de absorberlo.",[]),
+/* analítico */
+N("bruta",36,842,"ana","Zona bruta","Amazon S3","Cloud Storage","el dato como llegó","particionada por fecha","particionada por fecha",
+  "Conserva el dato tal como llegó, lo que preserva la capacidad de reprocesar ante un error de transformación. Es almacenamiento por objetos, no una base de datos.",["Almacenamiento por objetos","Data Lakehouse por zonas"]),
+N("etl",200,842,"ana","Proceso por lotes","AWS Glue","Dataflow","normaliza","trabajo por lotes","trabajo por lotes",
+  "Normaliza de la zona bruta a la zona curada y registra el esquema y el linaje de cada conjunto en el catálogo.",["Data Lakehouse por zonas"]),
+N("cura",364,842,"ana","Zona curada","Amazon S3 · curada","Cloud Storage · curada","formato columnar abierto","formato columnar abierto","formato columnar abierto",
+  "Formato columnar abierto, que además es la garantía de portabilidad entre proveedores: se lee igual en las dos nubes.",["Data Lakehouse por zonas","Almacenamiento por objetos"]),
+N("alm",528,842,"ana","Almacén analítico","Amazon Redshift","BigQuery","consultas del módulo","serverless","bajo demanda",
+  "Responde las consultas del módulo analítico por debajo de cinco segundos. El caso elegido es la proyección de rotación por lote y ventana de vencimiento.",["Data Lakehouse por zonas"]),
+N("catd",200,940,"ana","Catálogo y linaje","AWS Glue Data Catalog","Dataplex","permisos por dominio","esquema y linaje","esquema y linaje",
+  "Sin catálogo, la separación de fronteras de datos se perdería en el lago, que volvería a ser un esquema compartido con otro nombre.",["Catálogo y linaje del dato"]),
+N("vec",528,940,"ana","Índice vectorial","OpenSearch · vectorial","Vertex AI Vector Search","fragmenta y vectoriza","índice vectorial","índice vectorial",
+  "Fragmenta y vectoriza la zona curada: rotación por lote, ventanas de vencimiento e histórico de reposición.",["Generación aumentada por recuperación"]),
+N("inf",692,940,"ana","Servicio de inferencia","Amazon Bedrock","Vertex AI · Gemini","punto final privado","punto final privado","punto final privado",
+  "Recibe los fragmentos recuperados como contexto y devuelve la sugerencia. Se elige recuperación sobre ajuste fino porque el dato cambia a diario y la cita del origen es requisito de auditoría.",["Machine Learner","Generación aumentada por recuperación"]),
+N("asi",856,940,"ana","Pod asistente","EKS · asistente","GKE · asistente","cita el origen","pod de dominio","pod de dominio",
+  "Devuelve al comercial qué reponer, citando el lote y el histórico que sustentan la sugerencia. Ataca la mayor exposición económica: el producto que se vence sin rotar.",["Contenedores con descubrimiento","Machine Learner"])
+];
+var BANDS=[
+ {id:"tel",x:22,y:56,w:1392,h:206,t:"Plano de telemetría · cadena de frío en tiempo real",c:"--tel"},
+ {id:"tra",x:22,y:286,w:1392,h:482,t:"Plano transaccional · portal público por Internet e intranet corporativa",c:"--tra"},
+ {id:"ana",x:22,y:792,w:1392,h:244,t:"Plano analítico y de inteligencia artificial",c:"--ana"}
+];
+function E(a,b,l,f,p){return {a:a,b:b,l:l,f:f,p:p}}
+var EDGES=[
+ E("prov","con","nos suscribimos","frio"),
+ E("con","ing","evento normalizado","frio"),
+ E("ing","flu","deduplicado","frio"),
+ E("flu","fri","en orden, por cámara","frio"),
+ E("fri","est","lee e incrementa","frio"),
+ E("flu","ser","serie cruda","frio"),
+ E("fri","ala","17 lecturas · 240 s","frio"),
+ E("ala","ope","aviso al operario","frio"),
+ E("ala","inv","ordena acordonar el lote","frio",[[922,162],[922,232],[1330,232],[1330,425],[938,425]]),
+ E("ser","bruta","descarga periódica al lago","ana",[[594,236],[594,268],[14,268],[14,867],[36,867]]),
+ E("cli","cdn","HTTPS","pedido"),
+ E("cdn","waf","contenido estático","pedido"),
+ E("waf","apub","reglas OWASP","pedido"),
+ E("apub","bffp","testigo validado","pedido"),
+ E("intr","dx","intranet corporativa","pedido"),
+ E("dx","alb","enlace dedicado · mTLS","pedido"),
+ E("alb","apriv","sin dirección pública","pedido"),
+ E("apriv","bffc","federación corporativa","pedido"),
+ E("apriv","bffo","sesión de operación","pedido"),
+ E("apriv","bffa","consultas agregadas","pedido"),
+ E("bffp","ven","pedido","pedido"),
+ E("bffc","cat","catálogo","pedido"),
+ E("bffo","desp","despacho","pedido"),
+ E("ven","inv","reserva FEFO","pedido"),
+ E("ven","db","escritura","pedido"),
+ E("inv","db","reserva atómica","pedido"),
+ E("cat","rep","lecturas de catálogo","pedido"),
+ E("cat","cch","precio y disponibilidad","pedido"),
+ E("inv","cola","orden confirmada","pedido"),
+ E("cola","desp","trabajo de despacho","pedido"),
+ E("desp","nat","hoja de ruta","pedido"),
+ E("nat","onp","IP fija · mTLS extremo a extremo","pedido"),
+ E("db","rep","replicación","pedido"),
+ E("db","cdc","captura de cambios","ana"),
+ E("cdc","bruta","eventos de cambio al lago","ana",[[1312,371],[1312,760],[14,760],[14,857],[36,857]]),
+ E("bruta","etl","crudo","ana"),
+ E("etl","cura","normalizado","ana"),
+ E("cura","alm","carga analítica","ana"),
+ E("etl","catd","esquema y linaje","ana"),
+ E("cura","vec","fragmenta y vectoriza","ana"),
+ E("vec","inf","recupera contexto","ana"),
+ E("inf","asi","respuesta con cita","ana"),
+ E("bffa","alm","consulta del módulo","ana",[[718,581],[718,700],[594,700],[594,842]]),
+ E("asi","bffc","sugerencia de reposición","ana",[[988,965],[1360,965],[1360,425],[790,425],[790,425]])
+];
+var ASIS=[
+ N("acli",60,120,"tra","Cliente institucional","Cliente institucional","Cliente institucional","no accede al sistema","","",
+   "Pide por teléfono o correo a un comercial. Solo el 35 % de la fuerza comercial trabaja con información actualizada.",[]),
+ N("acom",60,230,"tra","Comercial","Comercial","Comercial","listado de anoche","","",
+   "Registra el pedido consultando un listado de inventario generado la noche anterior.",[]),
+ N("aope",60,340,"tra","Operario de centro","Operario de centro","Operario de centro","se entera una hora después","","",
+   "Recibe la desviación térmica hasta una hora después, aunque la señal del proveedor exista en tiempo real.",[]),
+ N("afw",240,230,"tra","Cortafuegos y zona desmilitarizada","Cortafuegos y DMZ","Cortafuegos y DMZ","red interna plana","","",
+   "Perímetro único sobre una red interna plana, sin segmentación por dominio.",[]),
+ N("alb2",400,230,"tra","Balanceador físico","Balanceador físico","Balanceador físico","sin redundancia","","",
+   "Equipo físico fuera de garantía, sin par redundante.",[]),
+ N("amon",575,175,"tra","Monolito modular","Monolito modular","Monolito modular","seis módulos, un ciclo","","",
+   "Portal de pedidos, inventario, despacho, carga de temperatura, informes y transferencia de archivos. Un solo ciclo de liberación, sin pruebas automatizadas de regresión.",[]),
+ N("adb",790,175,"tra","Motor relacional propietario","Motor relacional propietario","Motor relacional propietario","1,2 TB · esquema único","","",
+   "Esquema único compartido: cualquier módulo lee y escribe cualquier tabla. Fin de soporte anunciado. Es la razón por la que el sistema no se puede cortar por partes.",[]),
+ N("arep",790,300,"tra","Réplica en espera","Réplica en espera","Réplica en espera","conmutación manual","","",
+   "No se prueba desde hace diecinueve meses. Un solo centro de cómputo, un solo circuito eléctrico, sin sitio alterno.",[]),
+ N("atel",575,300,"tra","Carga de temperatura","Carga de temperatura","Carga de temperatura","un archivo por hora","","",
+   "Un proceso programado consulta la interfaz del proveedor una vez por hora y deposita un archivo en un directorio compartido.",[]),
+ N("aprov",400,340,"tra","Proveedor de sensores","Proveedor de sensores","Proveedor de sensores","señal en tiempo real","","",
+   "Expone la temperatura de las cámaras en tiempo real. El sistema actual la consume con una hora de retraso.",[])
+];
+var ASIS_E=[
+ E("acli","acom","pide por teléfono","pedido"),
+ E("acom","afw","registra el pedido","pedido"),
+ E("afw","alb2","","pedido"),
+ E("alb2","amon","sesión web","pedido"),
+ E("amon","adb","todos los módulos leen y escriben cualquier tabla","pedido"),
+ E("atel","adb","126 M de filas en el mismo esquema","frio"),
+ E("aprov","atel","archivo por hora","frio"),
+ E("adb","arep","replicación manual","pedido"),
+ E("aope","aprov","","frio")
+];
+var ASIS_B=[{id:"tra",x:22,y:60,w:980,h:360,t:"Centro de cómputo propio · Bogotá · sin sitio alterno",c:"--alarm"}];
+
+var FCOL={frio:"--tel",pedido:"--tra",ana:"--ana"};
+var view="tobe", lens="agn", flow="all", selId=null, patSel=null, probSel=null;
+var svg=$("#arch"), nodes=TOBE, edges=EDGES, bands=BANDS;
+
+function nodeById(id){ for(var i=0;i<nodes.length;i++) if(nodes[i].id===id) return nodes[i]; return null }
+function route(e){
+  var a=nodeById(e.a), b=nodeById(e.b); if(!a||!b) return null;
+  if(e.p){ var pts=[[a.x+a.w/2,a.y+a.h/2]].concat(e.p); return pts.map(function(p,i){return (i?"L":"M")+p[0]+" "+p[1]}).join(" ") }
+  var acx=a.x+a.w/2, acy=a.y+a.h/2, bcx=b.x+b.w/2, bcy=b.y+b.h/2;
+  if(Math.abs(acy-bcy)<4){
+    if(bcx>acx) return "M"+(a.x+a.w)+" "+acy+" L"+(b.x-5)+" "+bcy;
+    return "M"+a.x+" "+acy+" L"+(b.x+b.w+5)+" "+bcy;
+  }
+  if(Math.abs(acx-bcx)<4){
+    if(bcy>acy) return "M"+acx+" "+(a.y+a.h)+" L"+bcx+" "+(b.y-5);
+    return "M"+acx+" "+a.y+" L"+bcx+" "+(b.y+b.h+5);
+  }
+  var mx=(bcx>acx)?((a.x+a.w+b.x)/2):((b.x+b.w+a.x)/2);
+  var sx=(bcx>acx)?(a.x+a.w):a.x, ex=(bcx>acx)?(b.x-5):(b.x+b.w+5);
+  return "M"+sx+" "+acy+" L"+mx+" "+acy+" L"+mx+" "+bcy+" L"+ex+" "+bcy;
+}
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") }
+function render(){
+  var vb = (view==="tobe") ? "0 0 1436 1060" : "0 0 1024 440";
+  svg.setAttribute("viewBox",vb);
+  svg.style.minWidth = (view==="tobe") ? "1120px" : "860px";
+  var o='<defs>';
+  ["tel","tra","ana","ln"].forEach(function(k){
+    var c = k==="ln" ? css("--line-2") : css(FCOL[k==="tel"?"frio":k==="tra"?"pedido":"ana"]);
+    o+='<marker id="m-'+k+'" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">'
+      +'<path d="M0 0 L10 5 L0 10 z" fill="'+c+'"/></marker>';
+  });
+  o+='</defs>';
+  bands.forEach(function(b){
+    o+='<rect class="band" x="'+b.x+'" y="'+b.y+'" width="'+b.w+'" height="'+b.h+'" rx="12"/>'
+      +'<text class="band-t" x="'+(b.x+16)+'" y="'+(b.y+22)+'" fill="'+css(b.c)+'">'+esc(b.t)+'</text>';
+  });
+  edges.forEach(function(e,i){
+    var d=route(e); if(!d) return; e._d=d;
+    var mk = e.f==="frio"?"m-tel":e.f==="pedido"?"m-tra":"m-ana";
+    o+='<path class="ed" id="e'+i+'" data-f="'+e.f+'" d="'+d+'" marker-end="url(#'+mk+')"/>';
+  });
+  edges.forEach(function(e,i){
+    if(!e.l||!e._d) return;
+    var a=nodeById(e.a),b=nodeById(e.b); if(!a||!b) return;
+    var lx,ly;
+    if(e.p){ var mid=e.p[Math.floor(e.p.length/2)]; lx=mid[0]; ly=mid[1]-6; }
+    else { lx=(a.x+a.w/2+b.x+b.w/2)/2; ly=(a.y+a.h/2+b.y+b.h/2)/2-6; }
+    o+='<text class="el" data-f="'+e.f+'" x="'+lx+'" y="'+ly+'" text-anchor="middle">'+esc(e.l)+'</text>';
+  });
+  nodes.forEach(function(n){
+    var ac=css(FCOL[n.band==="tel"?"frio":n.band==="tra"?"pedido":"ana"]);
+    o+='<g class="nd" data-id="'+n.id+'" tabindex="0" role="button" aria-label="'+esc(n.L.agn)+'">'
+      +'<rect class="bx" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="8"/>'
+      +'<rect class="ac" x="'+n.x+'" y="'+n.y+'" width="3.5" height="'+n.h+'" rx="2" fill="'+ac+'"/>'
+      +'<text class="tt" x="'+(n.x+10)+'" y="'+(n.y+21)+'"></text>'
+      +'<text class="ss" x="'+(n.x+10)+'" y="'+(n.y+36)+'"></text></g>';
+  });
+  o+='<g class="pt" id="parts"></g>';
+  svg.innerHTML=o;
+  relabel(); applyFilter(); buildParticles();
+  $$("#arch .nd").forEach(function(g){
+    g.addEventListener("click",function(){ select(g.dataset.id) });
+    g.addEventListener("keydown",function(ev){ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); select(g.dataset.id) } });
+    g.addEventListener("mouseenter",function(){ if(!selId) show(g.dataset.id) });
+  });
+}
+function fit(s,max){ s=String(s); return s.length>max ? s.slice(0,max-1)+"…" : s }
+function relabel(){
+  nodes.forEach(function(n){
+    var g=$('#arch .nd[data-id="'+n.id+'"]'); if(!g) return;
+    var t=g.querySelector(".tt"), s=g.querySelector(".ss");
+    t.textContent=fit(n.L[lens]||n.L.agn,24);
+    s.textContent=fit(n.S[lens]||n.S.agn,26);
+    g.setAttribute("aria-label",(n.L[lens]||n.L.agn));
+  });
+}
+function recolor(){ if(svg.innerHTML) render(); }
+function applyFilter(){
+  var active=null;
+  if(patSel){ active={}; nodes.forEach(function(n){ if(n.pats.indexOf(patSel)>=0) active[n.id]=1 }) }
+  else if(probSel){ active={}; probSel.forEach(function(id){ active[id]=1 }) }
+  $$("#arch .nd").forEach(function(g){
+    var id=g.dataset.id, n=nodeById(id), dim=false;
+    if(active) dim=!active[id];
+    else if(flow!=="all"){
+      var inFlow=false;
+      edges.forEach(function(e){ if(e.f===flow&&(e.a===id||e.b===id)) inFlow=true });
+      dim=!inFlow;
+    }
+    g.classList.toggle("dim",dim);
+    g.classList.toggle("sel",id===selId);
+    g.classList.toggle("hl",!!(active&&active[id]));
+  });
+  $$("#arch .ed").forEach(function(p){
+    var f=p.dataset.f, dim = active ? true : (flow!=="all"&&f!==flow);
+    p.classList.toggle("dim",dim);
+    p.classList.toggle("act",!dim&&flow!=="all");
+    p.style.stroke = dim ? "" : css(FCOL[f]);
+  });
+  $$("#arch .el").forEach(function(t){
+    var f=t.dataset.f, dim = active ? true : (flow!=="all"&&f!==flow);
+    t.classList.toggle("dim",dim);
+    t.style.fill = (!dim&&flow!=="all") ? css(FCOL[f]) : "";
+  });
+}
+/* partículas */
+var parts=[], raf=null;
+function buildParticles(){
+  if(raf) cancelAnimationFrame(raf);
+  parts=[];
+  if(reduce) return;
+  var box=$("#parts"); if(!box) return;
+  var frag="";
+  edges.forEach(function(e,i){
+    var p=$("#e"+i); if(!p) return;
+    var len=0; try{ len=p.getTotalLength() }catch(err){ return }
+    if(!len) return;
+    var k=(flow==="all")?1:2;
+    for(var j=0;j<k;j++){
+      parts.push({p:p,len:len,t:(j/k)+Math.random()*0.3,f:e.f,sp:(46+Math.random()*18)/len});
+      frag+='<circle r="3.1" cx="-20" cy="-20"/>';
+    }
+  });
+  box.innerHTML=frag;
+  var cs=box.children;
+  parts.forEach(function(q,i){ q.el=cs[i] });
+  var last=performance.now();
+  (function loop(now){
+    var dt=Math.min(64,now-last); last=now;
+    for(var i=0;i<parts.length;i++){
+      var q=parts[i];
+      var hidden = (patSel||probSel) ? true : (flow!=="all"&&q.f!==flow);
+      if(hidden){ q.el.setAttribute("cx",-20); q.el.setAttribute("cy",-20); continue }
+      q.t+=q.sp*dt/1000; if(q.t>1) q.t-=1;
+      var pt=q.p.getPointAtLength(q.t*q.len);
+      q.el.setAttribute("cx",pt.x); q.el.setAttribute("cy",pt.y);
+      q.el.setAttribute("fill",css(FCOL[q.f]));
+    }
+    raf=requestAnimationFrame(loop);
+  })(last);
+}
+function show(id){
+  var n=nodeById(id); if(!n) return;
+  $("#insN").textContent=n.L[lens]||n.L.agn;
+  $("#insD").textContent=n.desc;
+  if(view==="asis"){ $("#insX").hidden=true; return }
+  $("#insX").hidden=false;
+  $("#insAgn").textContent=n.L.agn;
+  $("#insAws").textContent=n.L.aws;
+  $("#insGcp").textContent=n.L.gcp;
+  $("#insP").innerHTML = n.pats.length ? n.pats.map(function(p){return '<span>'+esc(p)+'</span>'}).join("") : '<span>Sin patrón asociado</span>';
+}
+function select(id){ selId=(selId===id)?null:id; show(id); applyFilter() }
+render();
+
+$$('[data-view]').forEach(function(c){ c.addEventListener("click",function(){
+  $$('[data-view]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
+  view=c.dataset.view; selId=null; patSel=null; probSel=null; clearProb();
+  $$("#pats .pat").forEach(function(p){p.classList.remove("on")});
+  if(view==="tobe"){ nodes=TOBE; edges=EDGES; bands=BANDS; $("#lensGrp").style.display=""; $("#flowGrp").style.display="" }
+  else { nodes=ASIS; edges=ASIS_E; bands=ASIS_B; flow="all"; $("#lensGrp").style.display="none"; $("#flowGrp").style.display="none";
+         $$('[data-flow]').forEach(function(x){x.classList.toggle("on",x.dataset.flow==="all")}) }
+  $("#insN").textContent="Pulse un componente"; $("#insX").hidden=true;
+  $("#insD").textContent = view==="asis"
+    ? "La arquitectura actual: seis módulos sobre un esquema relacional único. Pulse cualquier caja para ver qué dolor concreto produce."
+    : "Cada caja del lienzo guarda qué resuelve, qué patrón materializa y qué servicio la ocupa en cada nube.";
+  render();
+})});
+$$('[data-lens]').forEach(function(c){ c.addEventListener("click",function(){
+  $$('[data-lens]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
+  lens=c.dataset.lens; relabel(); if(selId) show(selId);
+})});
+$$('[data-flow]').forEach(function(c){ c.addEventListener("click",function(){
+  $$('[data-flow]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
+  flow=c.dataset.flow; patSel=null; probSel=null; clearProb(); $$("#pats .pat").forEach(function(p){p.classList.remove("on")});
+  applyFilter(); buildParticles();
+})});
+
+/* ───── problemática ───── */
+var PROB=[
+ ["Portal e inventario comparten tablas",
+  "El bloqueo pesimista degrada el sistema por encima de 120 operaciones por minuto.",
+  "Cada dominio es un pod con su propia frontera de datos. El pod de inventario es el único que reserva, y lo hace de forma atómica por lote y vencimiento dentro de una sola transacción, sin bloquear la tabla completa.",
+  ["bffp","ven","inv","db"]],
+ ["El cliente no consulta inventario directamente",
+  "El comercial trabaja con información del día anterior; solo el 35 % de la fuerza comercial tiene datos actualizados.",
+  "Portal propio por Internet, servido desde el borde, con disponibilidad y precio de convenio en línea. La consulta va a réplicas y a la caché, nunca al primario.",
+  ["cli","cdn","waf","apub","bffp","cat","rep","cch"]],
+ ["La temperatura se consulta cada hora",
+  "Una desviación térmica puede conocerse demasiado tarde para salvar el producto.",
+  "Un pod conector se suscribe hacia afuera al flujo del proveedor y la regla se evalúa en flujo, con estado por cámara. La decimoséptima lectura fuera de rango llega a los 240 segundos.",
+  ["prov","con","ing","flu","fri","est","ala","ope"]],
+ ["126 millones de lecturas en la base transaccional",
+  "La analítica compite por recursos con la toma de pedido.",
+  "La serie cruda se escribe en un almacén de series de tiempo, alimentado por un segundo consumidor del mismo flujo. El esquema transaccional deja de cargar con la telemetría.",
+  ["flu","ser","bruta"]],
+ ["Todos los módulos comparten el mismo esquema",
+  "No se pueden migrar ni liberar de forma independiente.",
+  "Un pod por dominio, cada uno dueño de sus datos. Eso es lo que permite cortar el sistema por partes y migrar dominio por dominio, empezando por la reportería nocturna.",
+  ["ven","inv","cat","desp","asi","bffp","bffc","bffo","bffa"]],
+ ["Un solo centro de cómputo",
+  "Punto único de falla, con una réplica de conmutación manual sin probar en diecinueve meses.",
+  "Despliegue en tres zonas de disponibilidad con réplica síncrona y conmutación automática: 15 minutos de recuperación y un minuto de pérdida máxima. La plataforma se declara como infraestructura como código.",
+  ["db","rep","cch"]],
+ ["Reportes nocturnos",
+  "La analítica tarda de tres a cinco días en entregar un consolidado.",
+  "Captura de cambios continua desde el registro de transacciones hacia el lago, y consulta interactiva sobre el almacén analítico. Es además el primer componente que se migra.",
+  ["db","cdc","bruta","etl","cura","alm","bffa"]]
+];
+function clearProb(){ $$("#probList .prow").forEach(function(x){x.classList.remove("on")}) }
+(function(){
+  var box=$("#probList");
+  PROB.forEach(function(p,i){
+    var b=document.createElement("button"); b.className="prow"; b.type="button";
+    b.innerHTML='<span class="pa"><span class="nn">'+String(i+1).padStart(2,"0")+'</span>'+esc(p[0])+'</span>'
+      +'<span class="pc">'+esc(p[1])+'</span>'
+      +'<span class="fx"><b>Cómo queda resuelto.</b> '+esc(p[2])+'<span class="go">▸ encendido en el lienzo de la sección siguiente</span></span>';
+    b.addEventListener("click",function(){
+      var was=b.classList.contains("on");
+      clearProb(); patSel=null; $$("#pats .pat").forEach(function(x){x.classList.remove("on")});
+      if(was){ probSel=null }
+      else{
+        b.classList.add("on"); probSel=p[3];
+        if(view!=="tobe"){ $$('[data-view]')[0].click(); b.classList.add("on"); probSel=p[3] }
+        document.getElementById("arquitectura").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+      }
+      applyFilter();
+    });
+    box.appendChild(b);
+  });
+})();
+
+/* ───── patrones ───── */
+var PAT=[
+ ["app","API Gateway","Punto de entrada único por canal, con autenticación, control de tasa y observación del tráfico. Hay dos instancias porque los dos canales tienen superficies e identidades distintas."],
+ ["app","Backend for Frontend","Una fachada por tipo de consumidor. El portal necesita disponibilidad agregada en una llamada; la terminal de bodega necesita lote y ubicación."],
+ ["app","Producer–Consumer","Desacopla la producción del consumo. La telemetría se publica una vez y se consume con estado; el despacho se encola en lugar de ejecutarse dentro de la transacción."],
+ ["app","Publish–Subscribe","Un mismo evento alcanza varios destinos sin que el emisor los conozca: la alarma sale al operario y al pod de inventario."],
+ ["app","Bulkhead","Aísla recursos para que una tormenta de telemetría no agote la capacidad de la toma de pedido. Cuota y compartimento propios."],
+ ["app","Contenedores con descubrimiento","Cada dominio es una unidad de despliegue independiente. Es el vehículo del agnosticismo: un clúster conforme existe en las dos nubes."],
+ ["app","Anti-Corruption Layer","Traduce el modelo de un tercero antes de que entre al dominio. Aparece dos veces: hacia el proveedor de sensores y hacia el operador logístico."],
+ ["app","Static Content Hosting","El portal se sirve como contenido estático desde el borde, sin consumir capacidad del clúster ni de la base de datos."],
+ ["app","Machine Learner","La inferencia es un servicio gestionado con punto final privado, no un modelo embebido en la aplicación."],
+ ["dat","CQRS","Separa escritura de lectura. El 85 % de las operaciones son consultas, y llevarlas a réplicas libera al primario para el compromiso de venta."],
+ ["dat","Caching","Precio por convenio y disponibilidad agregada, con tolerancia a segundos de desfase. Solo para navegar: el compromiso de venta nunca lee la caché."],
+ ["dat","Time-Series Store","Conserva la serie cruda fuera del esquema transaccional, con trece meses de retención para la auditoría sanitaria."],
+ ["dat","Key-Value Store","Lectura y escritura atómicas de un documento en pocos milisegundos, 480 veces cada quince segundos. Es el contador que sobrevive al reinicio."],
+ ["dat","Almacenamiento por objetos","Durabilidad alta sin administración y clases de acceso para mover la evidencia antigua a almacenamiento frío sin tocar la aplicación."],
+ ["dat","Almacenamiento por bloques","Acceso por bloque con baja latencia para los volúmenes de los nodos y del motor relacional. Los pods de dominio son sin estado a propósito."],
+ ["dat","Data Lakehouse por zonas","Zona bruta reprocesable y zona curada en formato columnar abierto, que además es la garantía de portabilidad entre proveedores."],
+ ["dat","Change Data Capture","Publica cada cambio confirmado leyendo el registro de transacciones, no consultando las tablas. Ve los borrados y no compite con la venta."],
+ ["dat","Catálogo y linaje del dato","Registra esquema, origen y transformación con permisos por dominio. Evita que el lago vuelva a ser un esquema compartido."],
+ ["dat","Generación aumentada por recuperación","Recupera de la zona curada y entrega como contexto a la inferencia. Se elige sobre el ajuste fino porque el dato cambia a diario y la cita es requisito de auditoría."],
+ ["dat","Security Vault Key","Credenciales, llaves y certificados en una bóveda con rotación automática. Ningún secreto viaja en la imagen del contenedor."]
+];
+function drawPats(f){
+  var box=$("#pats"); box.innerHTML="";
+  PAT.filter(function(p){return f==="all"||p[0]===f}).forEach(function(p){
+    var b=document.createElement("button"); b.className="pat"; b.type="button"; b.dataset.p=p[1];
+    b.innerHTML='<span class="nm"><i class="kd" style="background:var(--'+(p[0]==="app"?"tra":"ana")+')"></i>'+esc(p[1])+'</span><span class="ds">'+esc(p[2])+'</span>';
+    b.addEventListener("click",function(){
+      var was=b.classList.contains("on");
+      $$("#pats .pat").forEach(function(x){x.classList.remove("on")});
+      probSel=null; clearProb();
+      if(was){ patSel=null } else { b.classList.add("on"); patSel=p[1];
+        if(view!=="tobe"){ $$('[data-view]')[0].click(); b.classList.add("on"); patSel=p[1] }
+        document.getElementById("arquitectura").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+      }
+      applyFilter();
+    });
+    box.appendChild(b);
+  });
+}
+drawPats("all");
+$$('#patrones [data-filter]').forEach(function(c){ c.addEventListener("click",function(){
+  $$('#patrones [data-filter]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
+  patSel=null; probSel=null; clearProb(); applyFilter(); drawPats(c.dataset.filter);
+})});
+
+/* ───── costos ───── */
+var COST=[
+ ["Red privada y egreso",1001.19,702.02,"Dos conexiones de Direct Connect de 1 Gbps en Bogotá, endpoints de VPC para cada servicio privado y un NAT Gateway por zona. Es la línea más cara del blueprint de AWS y no aparece como una caja en el diagrama."],
+ ["Datos transaccionales",591.54,871.50,"RDS Multi-AZ con réplica y RDS Proxy, contra Cloud SQL Enterprise Plus, que se elige por el acuerdo de 99,99 % y el concentrador gestionado, pero cuesta más a este volumen."],
+ ["Telemetría, estado y series",302.11,663.41,"El nodo mínimo de Bigtable está sobredimensionado para 32 escrituras por segundo. Es la razón principal de que la telemetría cueste el doble en Google Cloud."],
+ ["Entrada pública",150.11,695.64,"API Gateway de Google Cloud no alcanza backends privados, así que las dos pasarelas se resuelven con Apigee, que factura por hora de entorno además de por llamada."],
+ ["Cómputo de contenedores",431.40,378.46,"Cinco nodos en AWS y seis en GKE regional, dos por zona, más la tarifa de gestión del clúster en ambos casos."],
+ ["Lago, proceso y analítica",185.00,64.37,"Redshift Serverless se factura por unidad de cómputo y hora; BigQuery bajo demanda cobra por terabyte analizado, y a 40 GB mensuales eso casi no se nota."],
+ ["IA y búsqueda vectorial",112.10,85.27,"Índice vectorial e inferencia detrás de un punto final privado, con 3 000 consultas mensuales del asistente de reposición."],
+ ["Seguridad y observabilidad",94.27,33.77,"Métricas personalizadas, trazas, bóveda de secretos y llaves gestionadas. La diferencia está en los niveles gratuitos de Cloud Logging y Cloud Monitoring."],
+ ["Mensajería y captura de cambios",93.72,4.39,"AWS reparte el papel entre Kinesis, SNS, EventBridge con Pipes, SQS y Firehose. Google Cloud lo cubre con Pub/Sub, y la captura corre con Debezium dentro del clúster."]
+];
+function drawBars(sort){
+  var rows=COST.slice();
+  if(sort==="aws") rows.sort(function(a,b){return b[1]-a[1]});
+  else if(sort==="gcp") rows.sort(function(a,b){return b[2]-a[2]});
+  else rows.sort(function(a,b){return Math.abs(b[2]-b[1])-Math.abs(a[2]-a[1])});
+  var box=$("#bars"); box.innerHTML="";
+  rows.forEach(function(r){
+    var d=document.createElement("div"); d.className="brow"; d.tabIndex=0; d.setAttribute("role","button");
+    var f=function(v){return v.toLocaleString("es-CO",{maximumFractionDigits:0})};
+    d.innerHTML='<div class="top"><b>'+esc(r[0])+'</b><span class="vals">AWS '+f(r[1])+'  ·  GCP '+f(r[2])+'</span></div>'
+      +'<div class="track"><div class="bar aws"><i></i></div><div class="bar gcp"><i></i></div></div>'
+      +'<div class="why">'+esc(r[3])+'</div>';
+    var tog=function(){ d.classList.toggle("open") };
+    d.addEventListener("click",tog);
+    d.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()} });
+    box.appendChild(d);
+    requestAnimationFrame(function(){
+      d.querySelector(".bar.aws i").style.width=(r[1]/1010*100)+"%";
+      d.querySelector(".bar.gcp i").style.width=(r[2]/1010*100)+"%";
+    });
+  });
+}
+drawBars("dif");
+$$('#costos [data-sort]').forEach(function(c){ c.addEventListener("click",function(){
+  $$('#costos [data-sort]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on"); drawBars(c.dataset.sort);
+})});
+
+/* ───── visor ───── */
+var lb=$("#lb"),lbImg=$("#lbImg"),lbStage=$("#lbStage"),zx=0,zy=0,zs=1,nat=[1,1],lastFocus=null;
+function lbApply(){ lbImg.style.transform="translate("+zx+"px,"+zy+"px) scale("+zs+")"; $("#lbPct").textContent=Math.round(zs*100)+"%" }
+function lbFit(){ var r=lbStage.getBoundingClientRect(); zs=Math.min((r.width-32)/nat[0],(r.height-32)/nat[1]);
+  zx=(r.width-nat[0]*zs)/2; zy=(r.height-nat[1]*zs)/2; lbApply() }
+function lbZoom(f,cx,cy){ var r=lbStage.getBoundingClientRect();
+  cx=(cx===undefined)?r.width/2:cx; cy=(cy===undefined)?r.height/2:cy;
+  var ns=Math.max(.08,Math.min(9,zs*f)); zx=cx-(cx-zx)*(ns/zs); zy=cy-(cy-zy)*(ns/zs); zs=ns; lbApply() }
+$$(".fig").forEach(function(b){ b.addEventListener("click",function(){
+  lastFocus=b; $("#lbTitle").textContent=b.dataset.t; lbImg.alt=b.dataset.t; lbImg.src=b.dataset.src;
+  lb.classList.add("on");
+  lbImg.onload=function(){ nat=[lbImg.naturalWidth,lbImg.naturalHeight]; lbImg.style.width=nat[0]+"px"; lbFit() };
+  if(lbImg.complete&&lbImg.naturalWidth) lbImg.onload();
+  $("#lbClose").focus();
+})});
+function lbClose(){ lb.classList.remove("on"); if(lastFocus) lastFocus.focus() }
+$("#lbClose").addEventListener("click",lbClose);
+$("#lbIn").addEventListener("click",function(){lbZoom(1.35)});
+$("#lbOut").addEventListener("click",function(){lbZoom(1/1.35)});
+$("#lbFit").addEventListener("click",lbFit);
+lbStage.addEventListener("wheel",function(e){e.preventDefault();var r=lbStage.getBoundingClientRect();lbZoom(e.deltaY<0?1.14:1/1.14,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+var dg=false,px=0,py=0;
+lbStage.addEventListener("pointerdown",function(e){dg=true;px=e.clientX;py=e.clientY;lbStage.classList.add("drag");lbStage.setPointerCapture(e.pointerId)});
+lbStage.addEventListener("pointermove",function(e){if(!dg)return;zx+=e.clientX-px;zy+=e.clientY-py;px=e.clientX;py=e.clientY;lbApply()});
+["pointerup","pointercancel"].forEach(function(t){lbStage.addEventListener(t,function(){dg=false;lbStage.classList.remove("drag")})});
+lbStage.addEventListener("dblclick",function(e){var r=lbStage.getBoundingClientRect();lbZoom(1.8,e.clientX-r.left,e.clientY-r.top)});
+addEventListener("resize",function(){if(lb.classList.contains("on"))lbFit()});
+
+addEventListener("keydown",function(e){
+  if(lb.classList.contains("on")){
+    if(e.key==="Escape")lbClose(); else if(e.key==="+"||e.key==="=")lbZoom(1.35);
+    else if(e.key==="-"||e.key==="_")lbZoom(1/1.35); else if(e.key==="0")lbFit();
+    return;
+  }
+  var tag=(e.target.tagName||"").toLowerCase(); if(tag==="input"||tag==="textarea")return;
+  var fl={"1":"all","2":"frio","3":"pedido","4":"ana"}[e.key];
+  if(fl){ var b=$('[data-flow="'+fl+'"]'); if(b&&$("#flowGrp").style.display!=="none") b.click(); return }
+  if(e.key==="a"||e.key==="A"){
+    var order=["agn","aws","gcp"], i=order.indexOf(lens);
+    var nb=$('[data-lens="'+order[(i+1)%3]+'"]'); if(nb&&$("#lensGrp").style.display!=="none") nb.click();
+  }
+});
+
+/* ───── cronómetro ───── */
+var BLOCKS=[["Ariel","Contexto y motivadores de negocio",0,120],["Camilo","Arquitectura AS-IS y TO-BE agnóstica",120,300],
+            ["David Santiago","Blueprint de tecnología y costos",300,470],["David Felipe","Patrones y cierre",470,600]];
+var TOT=600,left=TOT,tick=null,tbar=$("#tbar");
+BLOCKS.forEach(function(b,i){var d=document.createElement("div");d.className="tseg";d.style.flex=(b[3]-b[2]);
+  d.style.background=(i%2)?"var(--surface-3)":"var(--line)";tbar.appendChild(d)});
+function mmss(s){var m=Math.floor(Math.abs(s)/60),q=Math.abs(s)%60;return (s<0?"−":"")+m+":"+String(q).padStart(2,"0")}
+BLOCKS.forEach(function(b){var tr=document.createElement("tr");
+  tr.innerHTML="<td><b>"+b[0]+"</b></td><td>"+b[1]+"</td><td class='t'>"+mmss(b[2])+" – "+mmss(b[3])+"</td>";
+  $("#splitBody").appendChild(tr)});
+function paint(){
+  var el=$("#clock"); el.textContent=mmss(left); el.classList.toggle("over",left<0);
+  var used=TOT-left,cur=-1;
+  BLOCKS.forEach(function(b,i){if(used>=b[2]&&used<b[3])cur=i});
+  if(left<=0)cur=BLOCKS.length-1;
+  $$("#splitBody tr").forEach(function(tr,i){tr.classList.toggle("now",i===cur&&tick!==null)});
+  $$("#tbar .tseg").forEach(function(d,i){d.style.background=(tick!==null&&i===cur)?"var(--gold)":((i%2)?"var(--surface-3)":"var(--line)")});
+  if(tick===null){$("#whoNow").innerHTML="Sin iniciar. Abre <b>Ariel</b>, con el contexto y los motivadores.";return}
+  if(left<0){$("#whoNow").innerHTML="Se pasaron de los diez minutos. Cierre <b>David Felipe</b> con las cuatro lecciones.";return}
+  var b=BLOCKS[cur<0?0:cur];
+  $("#whoNow").innerHTML="Va <b>"+b[0]+"</b> · "+b[1]+". Le quedan <b>"+mmss(b[3]-(TOT-left))+"</b> de su bloque.";
+}
+paint();
+$("#tStart").addEventListener("click",function(){
+  if(tick){clearInterval(tick);tick=null;this.textContent="Reanudar";paint();return}
+  this.textContent="Pausar"; tick=setInterval(function(){left--;paint()},1000); paint();
+});
+$("#tReset").addEventListener("click",function(){if(tick){clearInterval(tick);tick=null}left=TOT;$("#tStart").textContent="Iniciar";paint()});
+})();
+</script>
