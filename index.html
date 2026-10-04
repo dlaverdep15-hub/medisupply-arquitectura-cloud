@@ -9,7 +9,7 @@
   --bg:#0D1320; --surface:#141D2E; --surface-2:#1B2739; --surface-3:#243249;
   --ink:#E9F0FB; --ink-2:#9DB0CC; --ink-3:#6B7F9C;
   --line:#243149; --line-2:#334765;
-  --gold:#E9B541; --gold-2:#F5CE77; --gold-soft:#36290F;
+  --gold:#E9B541; --gold-2:#F5CE77; --gold-soft:#36290F; --gold-on:#17202F;
   --tel:#4FC9D9; --tra:#9A95F5; --ana:#56C68F; --alarm:#F3794E;
   --shadow:0 2px 4px rgba(0,0,0,.35),0 18px 44px -22px rgba(0,0,0,.8);
   --plate:#FFFFFF; --plate-pad:4px;
@@ -23,7 +23,7 @@
   --bg:#F4F6FB; --surface:#FFFFFF; --surface-2:#EBF0F7; --surface-3:#DEE6F1;
   --ink:#0E1726; --ink-2:#485973; --ink-3:#6C7E99;
   --line:#D6DFEC; --line-2:#B6C5DA;
-  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0;
+  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0; --gold-on:#FFFFFF;
   --tel:#0C7C8D; --tra:#4C45C6; --ana:#1F7A53; --alarm:#BE4A1E;
   --shadow:0 1px 2px rgba(14,23,38,.07),0 14px 36px -20px rgba(14,23,38,.35);
   --plate:transparent; --plate-pad:0px;
@@ -33,7 +33,7 @@
   --bg:#F4F6FB; --surface:#FFFFFF; --surface-2:#EBF0F7; --surface-3:#DEE6F1;
   --ink:#0E1726; --ink-2:#485973; --ink-3:#6C7E99;
   --line:#D6DFEC; --line-2:#B6C5DA;
-  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0;
+  --gold:#9C6B06; --gold-2:#7A5304; --gold-soft:#FBEDD0; --gold-on:#FFFFFF;
   --tel:#0C7C8D; --tra:#4C45C6; --ana:#1F7A53; --alarm:#BE4A1E;
   --shadow:0 1px 2px rgba(14,23,38,.07),0 14px 36px -20px rgba(14,23,38,.35);
   --plate:transparent; --plate-pad:0px;
@@ -59,7 +59,7 @@ a{color:var(--gold);text-underline-offset:3px}
 .crest.ok .wm{display:none}
 .inst .escudo{height:46px;width:auto;max-width:190px;object-fit:contain;
   background:var(--plate);padding:var(--plate-pad);border-radius:6px;margin-right:4px}
-.crest .mk{width:30px;height:30px;flex:none;border-radius:4px;background:var(--gold);color:#17202F;
+.crest .mk{width:30px;height:30px;flex:none;border-radius:4px;background:var(--gold);color:var(--gold-on);
   display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1rem}
 .crest .w1{display:block;font-family:var(--data);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);line-height:1.3}
 .crest .w2{display:block;font-family:var(--display);font-weight:700;font-size:.84rem;line-height:1.15}
@@ -75,21 +75,22 @@ a{color:var(--gold);text-underline-offset:3px}
 .btn{font-family:var(--body);font-size:.78rem;font-weight:600;padding:7px 11px;border-radius:6px;cursor:pointer;
   border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);transition:background .14s,border-color .14s,color .14s}
 .btn:hover{background:var(--surface-3);border-color:var(--gold)}
-.btn.primary{background:var(--gold);border-color:var(--gold);color:#17202F}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--gold-on)}
 .btn.primary:hover{background:var(--gold-2);border-color:var(--gold-2)}
 .chip{font-family:var(--body);font-size:.79rem;font-weight:600;padding:6px 13px;border-radius:99px;cursor:pointer;
   border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);display:inline-flex;gap:7px;align-items:center}
 .chip:hover{border-color:var(--gold);color:var(--ink)}
-.chip.on{background:var(--gold);border-color:var(--gold);color:#17202F}
+.chip.on{background:var(--gold);border-color:var(--gold);color:var(--gold-on)}
 .chip i{width:8px;height:8px;border-radius:99px;flex:none}
 
 main{margin-left:var(--rail);padding-inline:clamp(14px,2.6vw,38px)}
 section{padding-block:clamp(40px,4.6vw,66px);border-bottom:1px solid var(--line);scroll-margin-top:18px}
 section:last-of-type{border-bottom:0}
-.wrap{max-width:1240px}
+.wrap{max-width:1240px;margin-inline:auto}
+#arquitectura .wrap,#blueprints .wrap{max-width:1500px}
 .eyebrow{font-family:var(--data);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:9px}
-h2{font-size:clamp(1.55rem,2.8vw,2.25rem)}
-.lede{color:var(--ink-2);font-size:1.02rem;max-width:68ch;margin-top:11px}
+h2{font-size:clamp(1.8rem,3.2vw,2.6rem)}
+.lede{color:var(--ink-2);font-size:1.06rem;max-width:56ch;margin-top:11px}
 .grid{display:grid;gap:13px}
 @media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 17px;min-width:0}
@@ -116,18 +117,20 @@ h1 em{font-style:normal;color:var(--gold)}
 .ro .k{font-family:var(--data);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .ro .v{font-family:var(--data);font-size:1.08rem;font-weight:600;font-variant-numeric:tabular-nums}
 .ro .v.warn{color:var(--alarm)}
-#trace{width:100%;height:140px;display:block;padding:13px 15px 0}
+#trace{width:100%;height:190px;display:block;padding:13px 15px 0}
 .mon-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:9px 15px 13px}
 .legend{display:flex;gap:13px;flex-wrap:wrap;font-size:.75rem;color:var(--ink-2)}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
-#alarmBadge{font-family:var(--data);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  padding:5px 11px;border-radius:99px;background:var(--gold-soft);color:var(--alarm);border:1px solid var(--alarm);opacity:.25;transition:opacity .2s}
+#alarmBadge{font-family:var(--data);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 11px;border-radius:99px;background:var(--alarm-soft,var(--surface-2));color:var(--alarm);border:1px dashed var(--alarm);visibility:hidden}
+#alarmBadge.on{visibility:visible;border-style:solid}
 #alarmBadge.on{opacity:1}
 .stats{display:grid;gap:11px;margin-top:20px}
-@media(min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:420px){.stats{grid-template-columns:1fr 1fr}}
+@media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
 .stat .big{font-family:var(--data);font-size:clamp(1.45rem,2.8vw,1.85rem);font-weight:600;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums}
-.stat .lbl{font-size:.82rem;font-weight:700;margin-top:3px}
+.stat .lbl{font-size:.82rem;font-weight:500;color:var(--ink-2);margin-top:3px}
 .stat .sm{font-size:.77rem;color:var(--ink-2);margin-top:2px}
 
 /* ── consola de arquitectura ── */
@@ -136,11 +139,13 @@ h1 em{font-style:normal;color:var(--gold)}
 .ctl .grp{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
 .ctl .lab{font-family:var(--data);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-right:2px}
 .stage{display:grid}
-@media(min-width:1080px){.stage{grid-template-columns:1fr 282px}}
-.canvas-box{overflow:auto;padding:8px;max-height:72vh}
-#arch{display:block;min-width:1120px;width:100%;height:auto}
-.inspector{border-top:1px solid var(--line);padding:15px;display:flex;flex-direction:column;gap:9px;background:var(--surface-2);min-width:0}
-@media(min-width:1080px){.inspector{border-top:0;border-left:1px solid var(--line);max-height:72vh;overflow-y:auto}}
+.console{position:relative}
+.canvas-box{overflow:auto;padding:6px}
+#arch{display:block;width:100%;height:auto;margin-inline:auto}
+.inspector{border-top:1px solid var(--line);padding:15px;display:none;flex-direction:column;gap:9px;background:var(--surface-2);min-width:0}
+.inspector.on{display:flex}
+@media(min-width:1080px){.inspector.on{position:absolute;right:14px;bottom:14px;width:306px;max-height:62%;overflow-y:auto;
+  border:1px solid var(--line-2);border-radius:10px;box-shadow:var(--shadow);z-index:5}}
 .ins-k{font-family:var(--data);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 .ins-n{font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1.2}
 .ins-d{font-size:.86rem;color:var(--ink-2)}
@@ -154,7 +159,7 @@ h1 em{font-style:normal;color:var(--gold)}
 /* nodos svg */
 .nd{cursor:pointer}
 .nd .bx{fill:var(--surface-2);stroke:var(--line-2);stroke-width:1.4;transition:fill .25s,stroke .25s,opacity .25s}
-.nd .tt{fill:var(--ink);font-family:var(--body);font-size:11.5px;font-weight:700}
+.nd .tt{fill:var(--ink);font-family:var(--body);font-size:10.6px;font-weight:700}
 .nd .ss{fill:var(--ink-3);font-family:var(--data);font-size:8.6px}
 .nd .ac{transition:fill .25s}
 .nd:hover .bx{stroke:var(--gold);stroke-width:2}
@@ -164,7 +169,7 @@ h1 em{font-style:normal;color:var(--gold)}
 .ed{fill:none;stroke:var(--line-2);stroke-width:1.6;transition:stroke .25s,stroke-width .25s,opacity .25s}
 .ed.dim{opacity:.1}
 .ed.act{stroke-width:2.4}
-.el{fill:var(--ink-3);font-family:var(--data);font-size:8.2px;transition:opacity .25s}
+.el{fill:var(--ink-3);font-family:var(--data);font-size:9px;transition:opacity .25s}
 .el.dim{opacity:.08}
 .band{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
 .band-t{font-family:var(--data);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
@@ -197,8 +202,9 @@ h1 em{font-style:normal;color:var(--gold)}
 
 /* ── patrones ── */
 .prob{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:11px;overflow:hidden}
-.prow{display:grid;gap:4px 16px;padding:13px 16px;border-bottom:1px solid var(--line);cursor:pointer;
-  text-align:left;font:inherit;color:inherit;background:none;width:100%;border-left:3px solid transparent}
+.prow{display:grid;gap:4px 16px;padding:13px 16px;cursor:pointer;
+  text-align:left;font:inherit;color:inherit;background:none;width:100%;
+  border:0;border-bottom:1px solid var(--line);border-left:3px solid transparent}
 .prow:last-child{border-bottom:0}
 .prow:hover{background:var(--surface-2)}
 .prow.on{background:var(--gold-soft);border-left-color:var(--gold)}
@@ -218,6 +224,27 @@ h1 em{font-style:normal;color:var(--gold)}
 .sla th,.sla td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
 .sla th{font-family:var(--data);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 .sla td.g{font-family:var(--data);font-weight:600;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.ch{font-size:.82rem;padding:7px 13px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--ink-2)}
+.ch b{color:var(--ink);font-weight:600}
+.nums{display:grid;gap:10px;margin-top:12px}
+@media(min-width:560px){.nums{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.nums{grid-template-columns:repeat(6,1fr)}}
+.num{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.num .v{font-family:var(--data);font-size:1.12rem;font-weight:600;color:var(--ink);line-height:1.15;font-variant-numeric:tabular-nums}
+.num .k{font-size:.76rem;color:var(--ink-2);margin-top:2px}
+.sub3{display:grid;gap:10px;margin-top:12px}
+@media(min-width:760px){.sub3{grid-template-columns:repeat(3,1fr)}}
+.sub3 div{display:flex;gap:9px;align-items:baseline;font-size:.86rem;color:var(--ink-2)}
+.sub3 i{width:9px;height:9px;border-radius:99px;flex:none;position:relative;top:1px}
+.sub3 b{color:var(--ink);font-weight:600}
+.beats{display:grid;gap:11px;margin-top:14px}
+@media(min-width:760px){.beats{grid-template-columns:repeat(3,1fr)}}
+.beat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.beat .b1{font-family:var(--display);font-size:1.12rem;font-weight:800;color:var(--ink);line-height:1.15;letter-spacing:-.01em}
+.beat.cifra .b1{font-family:var(--data);font-weight:600;color:var(--gold)}
+.beat .b2{font-size:.85rem;color:var(--ink-2);margin-top:4px}
+h2+.lede{margin-top:9px}
 .pat-grid{display:grid;gap:9px;margin-top:14px}
 @media(min-width:620px){.pat-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1040px){.pat-grid{grid-template-columns:repeat(3,1fr)}}
@@ -227,7 +254,19 @@ h1 em{font-style:normal;color:var(--gold)}
 .pat.on{border-color:var(--gold);background:var(--gold-soft)}
 .pat .nm{font-size:.86rem;font-weight:700;display:flex;gap:7px;align-items:center}
 .pat .kd{width:7px;height:7px;border-radius:99px;flex:none}
-.pat .ds{font-size:.8rem;color:var(--ink-2)}
+.pat .ds{font-size:.79rem;color:var(--ink-2)}
+.pat .ds2{font-size:.79rem;color:var(--ink);display:none}
+.pat.on .ds2{display:block}
+.patgrp{font-family:var(--data);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;margin:20px 0 8px;display:flex;gap:8px;align-items:center}
+.patgrp i{width:9px;height:9px;border-radius:99px}
+.cierre-final{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:-.02em;margin-top:26px}
+.cierre-final em{font-style:normal;color:var(--gold)}
+.dec{background:var(--surface);border:1px solid var(--gold);border-radius:12px;padding:18px 20px;margin-top:18px;box-shadow:var(--shadow)}
+.dec h3{font-family:var(--display);font-weight:800;font-size:1.3rem}
+.dec .row{display:grid;gap:12px;margin-top:12px}
+@media(min-width:760px){.dec .row{grid-template-columns:repeat(3,1fr)}}
+.dec .row div{font-size:.88rem;color:var(--ink-2)}
+.dec .row b{display:block;color:var(--ink);font-weight:700;margin-bottom:2px}
 
 /* ── figuras ── */
 .figrow{display:grid;gap:13px;margin-top:16px}
@@ -266,7 +305,7 @@ h1 em{font-style:normal;color:var(--gold)}
   :root{--rail:0px}
   #rail{position:static;width:auto;flex-direction:row;flex-wrap:wrap;align-items:center;border-right:0;
     border-bottom:1px solid var(--line);gap:10px;padding:calc(env(safe-area-inset-top,0px) + 11px) 14px 11px}
-  #nav{flex-direction:row;overflow-x:auto;gap:4px;margin:0;width:100%}
+  #nav{flex-direction:row;overflow-x:auto;gap:4px;margin:0;width:100%;mask-image:linear-gradient(90deg,#000 86%,transparent)}
   #nav a{white-space:nowrap;border-left:0;border-bottom:2px solid transparent;border-radius:5px 5px 0 0}
   #nav a.on{border-left:0;border-bottom-color:var(--gold)}
   #nav a .n{display:none}
@@ -300,85 +339,61 @@ h1 em{font-style:normal;color:var(--gold)}
 <section id="inicio"><div class="wrap">
   <div class="inst">
     <img class="escudo" id="escudo" src="" alt="" hidden>
-    <div class="t"><b>Universidad de los Andes</b><br>Facultad de Ingeniería · Departamento de Ingeniería de Sistemas y Computación</div>
+    <div class="t"><b>Universidad de los Andes</b><br>Facultad de Ingeniería · Ingeniería de Sistemas y Computación</div>
     <div class="t"><b>ARTI 4207 · Architecting for the Cloud</b><br>Maestría en Arquitecturas de TI · Proyecto 2026-20</div>
   </div>
   <h1>Una cámara fría sale de rango. <em>Tienen cuatro minutos.</em></h1>
-  <p class="hero-lede">MediSupply distribuye insumos médicos y producto farmacéutico bajo regulación sanitaria en ocho centros del país. Hoy se entera de una desviación térmica una hora después, porque la telemetría entra por archivo. Esta es la arquitectura que convierte esa hora en menos de cuatro minutos, y por qué ese cambio obligó a rediseñar el resto.</p>
-
-  <div class="monitor">
-    <div class="mon-head">
-      <div class="mon-title">Cámara 014 · Centro Bogotá Norte · rango certificado 2 a 8 °C</div>
-      <div class="mon-readout">
-        <div class="ro"><span class="k">Lectura</span><span class="v" id="roTemp">—</span></div>
-        <div class="ro"><span class="k">Fuera de rango</span><span class="v" id="roCount">0 / 17</span></div>
-        <div class="ro"><span class="k">Transcurrido</span><span class="v" id="roSecs">0 s</span></div>
-      </div>
-    </div>
-    <svg id="trace" viewBox="0 0 900 140" preserveAspectRatio="none" role="img" aria-label="Traza de temperatura de la cámara 014 contra la banda certificada de 2 a 8 grados"></svg>
-    <div class="mon-foot">
-      <div class="legend">
-        <span><i style="background:var(--gold-soft);border:1px solid var(--tel)"></i>Banda certificada 2 – 8 °C</span>
-        <span><i style="background:var(--tel)"></i>Lectura en rango</span>
-        <span><i style="background:var(--alarm)"></i>Lectura fuera de rango</span>
-      </div>
-      <span id="alarmBadge">Alarma · 17 lecturas · 240 s</span>
-    </div>
-  </div>
-
+  <p class="hero-lede">MediSupply hoy se entera una hora después. Esta es la arquitectura que lo cambia.</p>
   <div class="stats">
-    <div class="stat"><div class="big" data-count="2500">0</div><div class="lbl">pedidos diarios</div><div class="sm">120 operaciones por minuto hoy, 300 proyectadas</div></div>
-    <div class="stat"><div class="big" data-count="2.8" data-dec="1" data-suf=" M">0</div><div class="lbl">eventos de telemetría al día</div><div class="sm">480 cámaras, una lectura cada 15 segundos</div></div>
-    <div class="stat"><div class="big" data-count="126" data-suf=" M">0</div><div class="lbl">filas de temperatura</div><div class="sm">hoy viven en el mismo esquema que la venta</div></div>
-    <div class="stat"><div class="big" data-count="19">0</div><div class="lbl">meses sin probar la réplica</div><div class="sm">conmutación manual, un solo centro de cómputo</div></div>
+    <div class="stat"><div class="big" data-count="1" data-suf=" hora">0</div><div class="lbl">de retraso en la telemetría</div></div>
+    <div class="stat"><div class="big" data-count="120">0</div><div class="lbl">operaciones por minuto y se degrada</div></div>
+    <div class="stat"><div class="big" data-count="5" data-suf=" días">0</div><div class="lbl">para un informe consolidado</div></div>
+    <div class="stat"><div class="big" data-count="1">0</div><div class="lbl">centro de cómputo, sin sitio alterno</div></div>
   </div>
+  <div style="margin-top:20px"><button class="btn primary" id="toProb" type="button">Empezar por la problemática</button></div>
 </div></section>
 
 <section id="problema"><div class="wrap">
   <div class="eyebrow">Problemática</div>
-  <h2>Siete dolores, y ninguno se arregla comprando servidores</h2>
-  <p class="lede">Esta es la lista completa de lo que falla hoy y lo que produce cada falla. Pulsen cualquier fila: se abre cómo queda resuelto y el lienzo de la sección siguiente enciende los componentes que lo resuelven.</p>
+  <h2>Siete dolores. Ninguno se arregla comprando servidores</h2>
+  <p class="lede">Tres decisiones de diseño explican los siete. Pulse una fila para ver cómo queda resuelta.</p>
 
   <div class="prob">
     <div class="phead"><span>Problema actual</span><span>Consecuencia</span></div>
     <div id="probList"></div>
   </div>
 
-  <div class="grid g4" style="margin-top:20px">
-    <div class="card"><h3>Crecer sin reconstruir</h3><p>Duplicar el volumen de pedidos en dos años y abrir operación en un segundo país, con capacidad elástica en lugar de compra de hardware.</p></div>
-    <div class="card"><h3>Vender con promesa cumplida</h3><p>Disponibilidad real para el cliente y reserva atómica por lote y fecha de vencimiento, con criterio de primero en vencer, primero en salir.</p></div>
-    <div class="card"><h3>Proteger el producto y el cumplimiento</h3><p>Desviación térmica detectada en minutos, no en horas, y trazada con evidencia suficiente para un auditor sanitario.</p></div>
-    <div class="card"><h3>Eliminar el punto único de falla</h3><p>El centro de cómputo único y el fin de soporte del motor de base de datos son, juntos, el disparador ejecutivo del proyecto.</p></div>
+  <h3 class="patgrp" style="margin-top:24px">Motivadores de negocio</h3>
+  <div class="chips">
+    <span class="ch"><b>Crecer sin reconstruir</b></span>
+    <span class="ch"><b>Vender con promesa cumplida</b></span>
+    <span class="ch"><b>Proteger el producto y el cumplimiento</b></span>
+    <span class="ch"><b>Eliminar el punto único de falla</b></span>
   </div>
 
-  <h3 style="font-size:1.15rem;margin-top:26px">Cuatro restricciones que condicionan el diseño</h3>
-  <div class="grid g4" style="margin-top:12px">
-    <div class="card"><h3>Los sensores no son nuestros</h3><p>Los instala y opera un proveedor externo. No controlamos el dispositivo, ni su firmware, ni la cadencia con que reporta.</p></div>
-    <div class="card"><h3>Residencia del dato</h3><p>Información de pacientes y trazabilidad sanitaria bajo la Ley 1581 de 2012 y la reglamentación del Invima. Ninguna nube tiene región en Colombia.</p></div>
-    <div class="card"><h3>El operador logístico no migra</h3><p>Su API privada se queda on-premise, así que hace falta un egreso controlado con dirección fija e identidad mutua.</p></div>
-    <div class="card"><h3>Agnosticismo exigido</h3><p>La arquitectura debe poder ejecutarse en al menos dos nubes, por lo que se expresa en estándares abiertos y no en productos.</p></div>
+  <h3 class="patgrp">Restricciones</h3>
+  <div class="chips">
+    <span class="ch"><b>Los sensores son de un tercero</b></span>
+    <span class="ch"><b>Residencia del dato</b> · Ley 1581 e Invima</span>
+    <span class="ch"><b>El operador logístico no migra</b></span>
+    <span class="ch"><b>Agnosticismo exigido</b></span>
   </div>
 
-  <h3 style="font-size:1.15rem;margin-top:26px">Lo que la solución debe sostener</h3>
-  <p class="lede" style="margin-top:8px">2 500 pedidos diarios en dos picos, con 120 operaciones por minuto hoy y 300 proyectadas · 2 000 usuarios activos al mes y unos 400 concurrentes en pico · 15 millones de solicitudes mensuales a las pasarelas · 2,8 millones de eventos de telemetría al día desde 480 cámaras · 1,2 TB en el motor relacional, 126 millones de filas de telemetría y 7,6 TB de documentos · 18 000 referencias con precio por convenio.</p>
-  <table class="sla">
-    <thead><tr><th>Servicio</th><th>Objetivo</th><th>Métrica de referencia</th></tr></thead>
-    <tbody>
-      <tr><td>Disponibilidad del plano transaccional</td><td class="g">≥ 99,9 % mensual</td><td>Monitoreo sintético desde dos ubicaciones</td></tr>
-      <tr><td>Consulta de disponibilidad de producto</td><td class="g">p95 &lt; 400 ms</td><td>Desde la pasarela hasta la respuesta</td></tr>
-      <tr><td>Compromiso de venta con reserva de lote</td><td class="g">p95 &lt; 900 ms</td><td>Transacción completa confirmada</td></tr>
-      <tr><td>Alarma por desviación térmica</td><td class="g">&lt; 4 minutos</td><td>Desde la lectura del sensor hasta el aviso</td></tr>
-      <tr><td>Silencio de una cámara</td><td class="g">&lt; 4 minutos</td><td>Desde la última lectura hasta el aviso de sensor caído</td></tr>
-      <tr><td>Consulta del módulo analítico</td><td class="g">p95 &lt; 5 s</td><td>Sobre el almacén analítico</td></tr>
-      <tr><td>Recuperación ante falla de zona</td><td class="g">RTO 15 min · RPO 1 min</td><td>Prueba trimestral documentada</td></tr>
-    </tbody>
-  </table>
+  <h3 class="patgrp">Lo que la solución debe sostener</h3>
+  <div class="nums" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+    <div class="num"><div class="v">2 500 / día</div><div class="k">pedidos · 300 ops/min en pico</div></div>
+    <div class="num"><div class="v">2,8 M / día</div><div class="k">eventos · 480 cámaras cada 15 s</div></div>
+    <div class="num"><div class="v">85 / 15</div><div class="k">lecturas contra escrituras</div></div>
+    <div class="num"><div class="v">&lt; 4 min</div><div class="k">alarma térmica · el objetivo que manda</div></div>
+    <div class="num"><div class="v">p95 &lt; 400 ms</div><div class="k">consulta de disponibilidad</div></div>
+    <div class="num"><div class="v">15 / 1 min</div><div class="k">RTO y RPO ante falla de zona</div></div>
+  </div>
 </div></section>
 
 <section id="arquitectura"><div class="wrap">
-  <div class="eyebrow">Consola de arquitectura</div>
-  <h2>Toda la arquitectura, viva y navegable</h2>
-  <p class="lede">Un solo lienzo con los tres planos. Cambien el <b>proveedor</b> y verán cómo cada posición conserva su sitio mientras cambia el servicio que la ocupa: eso es el agnosticismo, no una declaración. Cambien el <b>flujo</b> y el resto del dibujo se apaga para que se siga el recorrido. Pulsen cualquier componente para inspeccionarlo.</p>
+  <div class="eyebrow">Arquitectura</div>
+  <h2>Un solo lienzo, tres planos, dos nubes</h2>
+  <p class="lede">Tres planos aislados. La misma posición en las dos nubes.</p>
 
   <div class="console">
     <div class="ctl">
@@ -391,7 +406,8 @@ h1 em{font-style:normal;color:var(--gold)}
         <button class="chip" type="button" data-lens="aws">AWS · us-east-1</button>
         <button class="chip" type="button" data-lens="gcp">Google Cloud · us-central1</button>
       </div>
-      <div class="grp" id="flowGrp"><span class="lab">Flujo</span>
+      <button class="btn" id="zoomArch" type="button" style="margin-left:auto">Ampliar lienzo</button>
+      <div class="grp" id="flowGrp" style="flex-basis:100%"><span class="lab">Flujo</span>
         <button class="chip on" type="button" data-flow="all">Todos</button>
         <button class="chip" type="button" data-flow="frio"><i style="background:var(--tel)"></i>Cadena de frío</button>
         <button class="chip" type="button" data-flow="pedido"><i style="background:var(--tra)"></i>Pedido</button>
@@ -419,38 +435,80 @@ h1 em{font-style:normal;color:var(--gold)}
         </div>
       </aside>
     </div>
-    <div class="flowkey">
-      <span><i style="background:var(--tel)"></i><b>Cadena de frío</b> · del sensor del tercero a la alarma</span>
-      <span><i style="background:var(--tra)"></i><b>Pedido</b> · de la consulta al compromiso de venta</span>
-      <span><i style="background:var(--ana)"></i><b>Analítico</b> · del cambio confirmado al asistente</span>
-      <span class="hint">Los puntos que viajan por las líneas son los datos moviéndose.</span>
+  </div>
+
+  <div class="sub3">
+    <div><i style="background:var(--tel)"></i><span><b>Telemetría</b> · no recibe conexiones; el conector se suscribe hacia afuera</span></div>
+    <div><i style="background:var(--tra)"></i><span><b>Transaccional</b> · dos entradas separadas, Internet e intranet</span></div>
+    <div><i style="background:var(--ana)"></i><span><b>Analítico</b> · sin puerta al exterior; se alimenta de eventos de cambio</span></div>
+  </div>
+</div></section>
+
+<section id="frio"><div class="wrap">
+  <div class="eyebrow">El flujo que define el diseño</div>
+  <h2>La regla de los cuatro minutos</h2>
+  <p class="lede">Los sensores son de un tercero. Esa sola restricción obligó a tres decisiones.</p>
+
+  <div class="monitor">
+    <div class="mon-head">
+      <div class="mon-title">Cámara 014 · Bogotá Norte · rango certificado 2 a 8 °C</div>
+      <div class="mon-readout">
+        <div class="ro"><span class="k">Lectura</span><span class="v" id="roTemp">—</span></div>
+        <div class="ro"><span class="k">Fuera de rango</span><span class="v" id="roCount">0 / 17</span></div>
+        <div class="ro"><span class="k">Transcurrido</span><span class="v" id="roSecs">0 s</span></div>
+      </div>
+    </div>
+    <svg id="trace" viewBox="0 0 900 140" preserveAspectRatio="none" role="img" aria-label="Traza de temperatura contra la banda certificada de 2 a 8 grados"></svg>
+    <div class="mon-foot">
+      <div class="legend">
+        <span><i style="background:var(--tel)"></i>En rango</span>
+        <span><i style="background:var(--alarm)"></i>Fuera de rango</span>
+      </div>
+      <span id="alarmBadge">Alarma · 17 lecturas · 240 s</span>
     </div>
   </div>
 
-  <div class="grid g3" style="margin-top:14px">
-    <div class="card"><h3>Plano de telemetría</h3><p>No recibe conexiones del exterior. Un pod conector se suscribe hacia afuera al flujo del proveedor, con cuota y compartimento propios: una tormenta de eventos no puede consumir la capacidad de la toma de pedido.</p></div>
-    <div class="card"><h3>Plano transaccional</h3><p>Dos entradas separadas. El portal por Internet con red de contenido, cortafuegos y pasarela pública. La intranet por enlace dedicado, balanceador sin dirección pública y pasarela privada.</p></div>
-    <div class="card"><h3>Plano analítico</h3><p>Sin punto de entrada al exterior. Se alimenta de los eventos de cambio del motor relacional y alimenta el asistente que sugiere reposición al comercial.</p></div>
+  <div class="beats">
+    <div class="beat cifra"><div class="b1">16 × 15 s = 240 s</div><div class="b2">La decimoséptima lectura fuera de rango cierra dieciséis intervalos: cuatro minutos exactos, y la alarma ya va en camino.</div></div>
+    <div class="beat"><div class="b1">El contador vive fuera</div><div class="b2">En un almacén de clave y valor, no en la memoria del pod. Así la regla sobrevive a un reinicio.</div></div>
+    <div class="beat"><div class="b1">Sin dato, también alarma</div><div class="b2">Sesenta segundos sin reportar abren alarma por silencio del sensor.</div></div>
   </div>
-  <div class="note"><b>La región la define la ley, no la latencia.</b> Ninguna nube tiene región en Colombia, así que cualquier opción implica transferencia internacional. El numeral 3.2 de la Circular Externa 005 de 2017 de la Superintendencia de Industria y Comercio lista los países con nivel adecuado de protección: Estados Unidos figura, Brasil no. La región que parecía más natural por cercanía es la que exige la declaración de conformidad previa. Y de paso resultó más barata y con menor latencia desde Bogotá.</div>
+</div></section>
+
+<section id="blueprints"><div class="wrap">
+  <div class="eyebrow">Blueprint de tecnología</div>
+  <h2>La misma retícula, dos nubes</h2>
+  <p class="lede">Ninguna posición se movió. Solo cambió el servicio que la ocupa.</p>
+  <div class="figrow">
+    <button class="fig" type="button" data-src="img/aws.png" data-t="Blueprint AWS · us-east-1 (Norte de Virginia)">
+      <img src="img/aws.png" alt="Arquitectura objetivo sobre AWS" loading="lazy">
+      <span class="cap"><b>AWS · us-east-1</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/gcp.png" data-t="Blueprint Google Cloud · us-central1 (Iowa)">
+      <img src="img/gcp.png" alt="Arquitectura objetivo sobre Google Cloud" loading="lazy">
+      <span class="cap"><b>Google Cloud · us-central1</b><span class="z">Ampliar</span></span></button>
+  </div>
+  <div class="note"><b>Región elegida por la ley, no por la latencia.</b> Ninguno de los dos proveedores evaluados tiene región en Colombia. La Circular 005 de 2017 de la SIC lista a Estados Unidos con nivel adecuado de protección de datos; Brasil no figura.</div>
 </div></section>
 
 <section id="patrones"><div class="wrap">
   <div class="eyebrow">Patrones</div>
-  <h2>Ocho de aplicación, once de datos, todos sobre el lienzo</h2>
-  <p class="lede">Pulsen un patrón y el diagrama de arriba enciende los componentes que lo materializan. Ningún patrón está aquí por catálogo: cada uno responde a una cifra o a una restricción del caso.</p>
-  <div class="grp" style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
-    <button class="chip on" type="button" data-filter="all">Todos · 19</button>
-    <button class="chip" type="button" data-filter="app"><i style="background:var(--tra)"></i>Aplicación · 8</button>
-    <button class="chip" type="button" data-filter="dat"><i style="background:var(--ana)"></i>Datos y almacenamiento · 11</button>
+  <h2>Nueve de aplicación, once de datos</h2>
+  <p class="lede">Pulse uno: el lienzo enciende dónde vive.</p>
+  <div id="pats"></div>
+  <div class="figrow" style="margin-top:22px">
+    <button class="fig" type="button" data-src="img/pat_app.png" data-t="Patrones de aplicación señalados sobre la arquitectura">
+      <img src="img/pat_app.png" alt="Patrones de aplicación" loading="lazy">
+      <span class="cap"><b>Aplicación, sobre la arquitectura</b><span class="z">Ampliar</span></span></button>
+    <button class="fig" type="button" data-src="img/pat_dat.png" data-t="Patrones de datos y almacenamiento sobre la arquitectura">
+      <img src="img/pat_dat.png" alt="Patrones de datos" loading="lazy">
+      <span class="cap"><b>Datos, sobre la arquitectura</b><span class="z">Ampliar</span></span></button>
   </div>
-  <div class="pat-grid" id="pats"></div>
 </div></section>
 
 <section id="costos"><div class="wrap">
   <div class="eyebrow">Costos</div>
   <h2>Dónde se va el dinero en cada nube</h2>
-  <p class="lede">Precios de lista de septiembre de 2026, sin descuentos por compromiso de uso. Pulsen cualquier fila para ver qué la explica.</p>
+  <p class="lede">Precios de lista, septiembre de 2026, sin descuentos por compromiso de uso.</p>
   <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
     <button class="chip on" type="button" data-sort="dif">Ordenar por diferencia</button>
     <button class="chip" type="button" data-sort="aws">Por costo en AWS</button>
@@ -461,27 +519,34 @@ h1 em{font-style:normal;color:var(--gold)}
     <div class="tot aws"><div class="who">AWS · us-east-1</div><div class="n">USD 2 961 <span style="font-size:.88rem;font-weight:400;color:var(--ink-2)">/ mes</span></div><div class="yr">Anual, con banda de ±15 %: USD 30 207 – 40 868</div></div>
     <div class="tot gcp"><div class="who">Google Cloud · us-central1</div><div class="n">USD 3 499 <span style="font-size:.88rem;font-weight:400;color:var(--ink-2)">/ mes</span></div><div class="yr">Anual, con banda de ±15 %: USD 35 688 – 48 284</div></div>
   </div>
-  <div class="note"><b>Lo que más pesa no se dibuja.</b> Las líneas más caras no son el cómputo ni la base de datos: son la red privada en AWS —endpoints, NAT por zona y dos enlaces dedicados— y la gestión de API en Google Cloud, que se factura por hora de entorno aunque no haya tráfico.</div>
+  <div class="note"><b>Lo más caro no se dibuja:</b> la red privada en AWS y la gestión de API en Google Cloud, que se factura por hora aunque no haya tráfico.</div>
+  <div class="dec">
+    <h3>La recomendación</h3>
+    <div class="row">
+      <div><b>AWS us-east-1</b>Un 15 % más barato y con menos desviaciones del diseño agnóstico. Es la opción que proponemos.</div>
+      <div><b>Google Cloud, plan B real</b>Lo hace viable el formato columnar abierto y el clúster conforme: la salida no está cerrada.</div>
+      <div><b>Primer dominio que migra</b>La reportería nocturna: fuera del camino crítico de la venta y obliga a construir el lago.</div>
+    </div>
+  </div>
 </div></section>
 
-<section id="figuras"><div class="wrap">
-  <div class="eyebrow">Documento</div>
-  <h2>Las figuras del entregable, con zoom</h2>
-  <p class="lede">Las mismas vistas que van en el documento escrito, en su versión de alta resolución. Pulsen para abrirlas y arrastrar.</p>
-  <div class="figrow">
-    <button class="fig" type="button" data-src="img/tobe.png" data-t="Figura 2 · Arquitectura objetivo agnóstica"><img src="img/tobe.png" alt="Arquitectura objetivo agnóstica" loading="lazy"><span class="cap"><b>Figura 2 · TO-BE agnóstica</b><span class="z">Ampliar</span></span></button>
-    <button class="fig" type="button" data-src="img/asis.png" data-t="Figura 1 · Arquitectura actual (AS-IS)"><img src="img/asis.png" alt="Arquitectura actual" loading="lazy"><span class="cap"><b>Figura 1 · AS-IS</b><span class="z">Ampliar</span></span></button>
-    <button class="fig" type="button" data-src="img/aws.png" data-t="Blueprint AWS · us-east-1"><img src="img/aws.png" alt="Arquitectura sobre AWS" loading="lazy"><span class="cap"><b>Blueprint AWS</b><span class="z">Ampliar</span></span></button>
-    <button class="fig" type="button" data-src="img/gcp.png" data-t="Blueprint Google Cloud · us-central1"><img src="img/gcp.png" alt="Arquitectura sobre Google Cloud" loading="lazy"><span class="cap"><b>Blueprint Google Cloud</b><span class="z">Ampliar</span></span></button>
-    <button class="fig" type="button" data-src="img/pat_app.png" data-t="Figura 3 · Patrones de aplicación"><img src="img/pat_app.png" alt="Patrones de aplicación" loading="lazy"><span class="cap"><b>Figura 3 · Patrones de aplicación</b><span class="z">Ampliar</span></span></button>
-    <button class="fig" type="button" data-src="img/pat_dat.png" data-t="Figura 4 · Patrones de datos"><img src="img/pat_dat.png" alt="Patrones de datos" loading="lazy"><span class="cap"><b>Figura 4 · Patrones de datos</b><span class="z">Ampliar</span></span></button>
+<section id="cierre"><div class="wrap">
+  <div class="eyebrow">Cierre</div>
+  <h2>Cuatro lecciones</h2>
+  <div class="grid g4" style="margin-top:16px">
+    <div class="card"><h3>La región la define la ley</h3><p>Estados Unidos figura entre los países con nivel adecuado de protección; Brasil no. La región más lejana era además la más barata.</p></div>
+    <div class="card"><h3>El agnosticismo termina en el detalle</h3><p>Cada nube obligó a un ajuste: Debezium en el clúster, Apigee en lugar de API Gateway.</p></div>
+    <div class="card"><h3>El costo está en lo que no se dibuja</h3><p>Red privada, endpoints y entornos facturados por hora, no el cómputo ni la base de datos.</p></div>
+    <div class="card"><h3>No era capacidad, era estructura</h3><p>Por eso la propuesta separa planos y establece fronteras por dominio en lugar de trasladar módulos.</p></div>
   </div>
+  <p class="cierre-final">Cuatro minutos. <em>No una hora.</em></p>
+  <p class="lede" style="margin-top:18px;font-size:.84rem;max-width:none;color:var(--ink-3)">Ariel Leonardo Molina Viteri · Camilo Alejandro Nossa Calderón · David Santiago Guasca Nova · David Felipe Laverde Parra</p>
 </div></section>
 
 <section id="cronometro"><div class="wrap">
   <div class="eyebrow">Sustentación</div>
   <h2>Diez minutos, cuatro voces</h2>
-  <p class="lede">El cronómetro marca el bloque que corre y a quién le toca. Si la franja se enciende de más, el bloque va largo.</p>
+  <p class="lede">Marca el bloque que corre y a quién le toca.</p>
   <div class="timer">
     <div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap">
       <div class="clock" id="clock">10:00</div>
@@ -495,19 +560,6 @@ h1 em{font-style:normal;color:var(--gold)}
     <table class="split"><thead><tr><th>Presenta</th><th>Bloque</th><th>Ventana</th></tr></thead><tbody id="splitBody"></tbody></table>
   </div>
   <div class="note"><b>Atajos:</b> <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span> cambian el flujo del lienzo, <span class="kbd">A</span> alterna proveedor, <span class="kbd">Esc</span> cierra el visor de figuras y, dentro del visor, <span class="kbd">+</span> <span class="kbd">−</span> <span class="kbd">0</span> controlan el zoom.</div>
-</div></section>
-
-<section id="cierre"><div class="wrap">
-  <div class="eyebrow">Cierre</div>
-  <h2>Lo que nos llevamos del proyecto</h2>
-  <div class="grid g2" style="margin-top:16px">
-    <div class="card"><h3>La región la define la ley, no la latencia</h3><p>La primera intuición fue São Paulo por cercanía. La Circular 005 mostró que Estados Unidos figura entre los países con nivel adecuado de protección y Brasil no. La región más lejana además era más barata.</p></div>
-    <div class="card"><h3>El agnosticismo termina en el detalle de cada servicio</h3><p>El diseño se tradujo casi uno a uno, pero cada nube obligó a un ajuste: Debezium dentro del clúster porque Datastream no publica en Pub/Sub, y Apigee porque API Gateway de Google no alcanza backends privados.</p></div>
-    <div class="card"><h3>El costo está en los componentes que no se dibujan</h3><p>Las líneas más caras no fueron el cómputo ni la base de datos, sino la red privada en AWS y la gestión de API en Google Cloud: endpoints, NAT por zona y entornos facturados por hora.</p></div>
-    <div class="card"><h3>El problema no era de capacidad, era de estructura</h3><p>Por eso la propuesta no traslada módulos a la nube: separa planos, establece fronteras por dominio y convierte la telemetría en un flujo evaluado con estado.</p></div>
-  </div>
-  <p class="lede" style="margin-top:20px">Ariel Leonardo Molina Viteri · Camilo Alejandro Nossa Calderón · David Santiago Guasca Nova · David Felipe Laverde Parra<br>
-  Maestría en Arquitecturas de Tecnologías de Información · Universidad de los Andes · Semestre 2026-20</p>
 </div></section>
 
 </main>
@@ -588,8 +640,8 @@ var CAND=["img/uniandes.png","img/uniandes.svg","img/uniandes.jpg","img/uniandes
 })();
 
 /* ───── navegación ───── */
-var SEC=[["inicio","Portada"],["problema","Problemática"],["arquitectura","Arquitectura"],["patrones","Patrones"],["costos","Costos"],
-         ["figuras","Figuras"],["cronometro","Sustentación"],["cierre","Cierre"]];
+var SEC=[["inicio","Portada"],["problema","Problemática"],["arquitectura","Arquitectura"],["frio","Cadena de frío"],
+         ["blueprints","Blueprint"],["patrones","Patrones"],["costos","Costos"],["cierre","Cierre"],["cronometro","Equipo"]];
 var nav=$("#nav");
 SEC.forEach(function(s,i){var a=document.createElement("a");a.href="#"+s[0];
   a.innerHTML='<span class="n">'+String(i+1).padStart(2,"0")+'</span><span>'+s[1]+'</span>';nav.appendChild(a)});
@@ -607,6 +659,7 @@ $("#themeBtn").addEventListener("click",function(){
   r.setAttribute("data-theme",now==="dark"?"light":"dark");
   drawTrace(); recolor();
 });
+$("#toProb").addEventListener("click",function(){document.getElementById("problema").scrollIntoView({behavior:reduce?"auto":"smooth"})});
 $("#toTimer").addEventListener("click",function(){document.getElementById("cronometro").scrollIntoView({behavior:reduce?"auto":"smooth"})});
 
 /* ───── contadores ───── */
@@ -668,20 +721,22 @@ function N(id,x,y,band,agn,aws,gcp,sa,sw,sg,desc,pats){
 }
 var TOBE=[
 /* telemetría */
-N("prov",36,112,"tel","Proveedor de sensores","Proveedor de sensores","Proveedor de sensores","tercero","tercero","tercero",
+N("prov",36,112,"tel","Proveedor (tercero)","Proveedor (tercero)","Proveedor (tercero)","dueño de los sensores","dueño de los sensores","dueño de los sensores",
   "Las 480 cámaras las instala y opera un tercero que expone la señal en tiempo real. MediSupply no controla el dispositivo, ni su firmware, ni la cadencia con que reporta.",[]),
 N("con",200,112,"tel","Pod conector","EKS · conector","GKE · conector","suscripción mTLS","suscripción mTLS","suscripción mTLS",
-  "Se suscribe hacia afuera al flujo del proveedor con identidad mutua. Aquí vive la traducción del modelo del tercero al nuestro: cambiar de proveedor de instrumentación toca este componente y ninguno más.",["Anti-Corruption Layer","Bulkhead"]),
+  "Se suscribe hacia afuera al flujo del proveedor con identidad mutua, usando un certificado de cliente que vive en la bóveda y rota solo. Aquí está la traducción del modelo del tercero al nuestro: cambiar de proveedor toca este componente y ninguno más.",["Anti-Corruption Layer","Bulkhead","Security Vault Key"]),
 N("ing",364,112,"tel","Pod de ingesta","EKS · ingesta","GKE · ingesta","deduplica","deduplica","deduplica",
   "Normaliza la lectura y la deduplica por cámara y marca de tiempo del sensor, porque el proveedor puede reenviar o entregar fuera de orden. Cada evento lleva dos marcas de tiempo: la del sensor y la de recepción.",["Producer–Consumer","Anti-Corruption Layer"]),
 N("flu",528,112,"tel","Flujo de lecturas","Kinesis Data Streams","Pub/Sub","clave = cámara","clave de partición","clave de orden",
-  "Flujo particionado por cámara, de modo que todas las lecturas de una misma cámara caen en el mismo consumidor y en orden. Sin esa garantía, dos réplicas contarían la misma desviación por separado.",["Producer–Consumer","Publish–Subscribe"]),
-N("fri",692,112,"tel","Pod de cadena de frío","EKS · pod frío","GKE · pod frío","evalúa la regla","evalúa la regla","evalúa la regla",
+  "Particionado por cámara: Kinesis garantiza orden dentro del fragmento y Pub/Sub orden por clave. Hace falta para que 'diecisiete consecutivas' signifique algo; que no se cuente dos veces lo garantiza el almacén de estado.",["Producer–Consumer","Publish–Subscribe"]),
+N("fri",692,112,"tel","Pod cadena de frío","EKS · pod frío","GKE · pod frío","evalúa la regla","evalúa la regla","evalúa la regla",
   "Aplica dos reglas: diecisiete lecturas consecutivas fuera del rango de 2 a 8 °C, y sesenta segundos sin recibir nada de una cámara. La ausencia de dato es tan grave como el dato malo.",["Producer–Consumer","Bulkhead"]),
 N("ala",856,112,"tel","Tema de alarma","Amazon SNS","Pub/Sub · tema alarma","un emisor, varios destinos","un emisor, varios destinos","un emisor, varios destinos",
   "La decimoséptima lectura llega a los 240 segundos: dieciséis intervalos de quince. La alarma se publica una vez y la consumen dos destinos distintos sin que el emisor los conozca.",["Publish–Subscribe"]),
-N("ope",1020,112,"tel","Operario del centro","Aviso por SMS y correo","Cloud Run functions","canal en tiempo real","suscripción de SNS","función de aviso",
+N("ope",1020,112,"tel","Operario del centro","Operario del centro","Operario del centro","canal en tiempo real","SNS: SMS y correo","Cloud Run: aviso",
   "El destino que cierra el acuerdo de nivel de servicio: menos de cuatro minutos desde la lectura del sensor hasta el aviso al operario del centro de distribución.",[]),
+N("reloj",364,186,"tel","Vigilante de silencio","EventBridge Scheduler","Cloud Scheduler","barrido cada 60 s","barrido cada 60 s","barrido cada 60 s",
+  "Un consumidor dirigido por eventos no puede detectar la ausencia de un evento. Este barrido recorre las marcas de la última lectura de cada cámara y abre alarma por silencio del sensor cuando una lleva sesenta segundos sin reportar.",["Producer–Consumer"]),
 N("ser",528,186,"tel","Almacén de series","Timestream for InfluxDB","Bigtable","13 meses","segundo consumidor","escrito por Dataflow",
   "Un segundo consumidor del mismo flujo escribe la serie cruda completa, con trece meses de retención para la auditoría sanitaria. Hoy esos 126 millones de filas viven en el esquema transaccional.",["Time-Series Store"]),
 N("est",692,186,"tel","Estado por cámara","Amazon DynamoDB","Firestore","contador atómico","clave de partición = cámara","documento por cámara",
@@ -690,19 +745,19 @@ N("est",692,186,"tel","Estado por cámara","Amazon DynamoDB","Firestore","contad
 N("cli",36,346,"tra","Clientes","Clientes","Clientes","Internet","Internet","Internet",
   "Clínicas, hospitales y cadenas de farmacia. Hoy no acceden al sistema: piden por teléfono o correo a un comercial que consulta un listado de la noche anterior.",[]),
 N("cdn",196,346,"tra","Red de contenido","Amazon CloudFront","Cloud CDN","caché de borde","caché de borde","balanceador global",
-  "Sirve el portal como contenido estático desde el borde, de modo que la carga de la interfaz no consume capacidad del clúster ni de la base de datos.",["Static Content Hosting","Almacenamiento por objetos"]),
-N("waf",346,346,"tra","Cortafuegos de aplicación","AWS WAF","Cloud Armor","reglas OWASP","reglas OWASP","reglas OWASP",
+  "Sirve el portal como contenido estático desde el borde, de modo que la carga de la interfaz no consume capacidad del clúster ni de la base de datos.",["Static Content Hosting"]),
+N("waf",346,346,"tra","Cortafuegos","AWS WAF","Cloud Armor","reglas OWASP","reglas OWASP","reglas OWASP",
   "Filtra el tráfico del canal público antes de que llegue a la pasarela. Es la primera de las dos capas que separan Internet de la intranet corporativa.",[]),
-N("apub",496,346,"tra","Pasarela pública","API Gateway · API pública","Apigee · entorno público","valida testigo OIDC","valida testigo OIDC","valida testigo OIDC",
+N("apub",496,346,"tra","Pasarela pública","API Gateway público","Apigee público","valida testigo OIDC","valida testigo OIDC","valida testigo OIDC",
   "Punto de entrada único del canal público: autenticación, control de tasa y observación del tráfico. Valida el testigo de acceso que emite el proveedor de identidad.",["API Gateway"]),
-N("intr",36,560,"tra","Fuerza comercial y operación","Fuerza comercial y operación","Fuerza comercial y operación","intranet corporativa","intranet corporativa","intranet corporativa",
+N("intr",36,560,"tra","Comercial y operación","Comercial y operación","Comercial y operación","intranet corporativa","intranet corporativa","intranet corporativa",
   "Comerciales, operarios de bodega y el módulo analítico entran por la red corporativa, no por Internet, y se autorizan por rol del directorio corporativo.",[]),
-N("dx",196,560,"tra","Enlace dedicado","Direct Connect · Bogotá","Partner Interconnect","2 conexiones de 1 Gbps","Equinix BG1","2 adjuntos de VLAN",
+N("dx",196,560,"tra","Enlace dedicado","Direct Connect","Partner Interconnect","2 conexiones de 1 Gbps","Equinix BG1","2 adjuntos de VLAN",
   "Conectividad privada desde Bogotá hacia la región, con identidad mutua. El punto de presencia alcanza cualquier región del proveedor, así que no ata la elección de región.",[]),
-N("alb",346,560,"tra","Balanceador interno","ALB interno","Balanceador interno","sin dirección pública","sin dirección pública","sin dirección pública",
-  "Distribuye el tráfico de la intranet sin exponer ninguna dirección al exterior. Separar las dos entradas evita que una regla del canal público abra una puerta hacia la intranet.",[]),
-N("apriv",496,560,"tra","Pasarela privada","API Gateway · API privada","Apigee · entorno interno","autoriza por rol","alcanzada por VPC Link","alcanzada por PSC",
+N("alb",346,560,"tra","Pasarela privada","API Gateway privado","Apigee interno","autoriza por rol","API REST privada","entorno interno",
   "Segunda instancia del mismo patrón, con otra superficie de exposición y otra identidad: autoriza por rol del directorio corporativo en lugar de por testigo público.",["API Gateway"]),
+N("apriv",496,560,"tra","Balanceador interno","ALB interno","Balanceador interno","sin dirección pública","vía VPC Link","vía Private Service Connect",
+  "Recibe de la pasarela privada y reparte hacia las fachadas, sin exponer ninguna dirección al exterior. Separar las dos entradas evita que una regla del canal público abra una puerta hacia la intranet.",[]),
 N("bffp",652,322,"tra","Fachada del portal","EKS · BFF portal","GKE · BFF portal","disponibilidad y precio","disponibilidad y precio","disponibilidad y precio",
   "El portal necesita disponibilidad agregada y precio de convenio en una sola llamada. Sin una fachada por consumidor, cada cambio de pantalla obligaría a tocar un servicio compartido.",["Backend for Frontend"]),
 N("bffc",652,400,"tra","Fachada comercial","EKS · BFF comercial","GKE · BFF comercial","catálogo y sugerencia","catálogo y sugerencia","catálogo y sugerencia",
@@ -711,26 +766,26 @@ N("bffo",652,478,"tra","Fachada de operación","EKS · BFF operación","GKE · B
   "La terminal de bodega necesita lote, ubicación y la alarma térmica en tiempo real. Es el destino de la alarma dentro del plano transaccional.",["Backend for Frontend"]),
 N("bffa",652,556,"tra","Fachada analítica","EKS · BFF analítico","GKE · BFF analítico","consultas agregadas","consultas agregadas","consultas agregadas",
   "Única puerta del módulo analítico hacia el almacén. El plano analítico no expone ningún punto de entrada propio al exterior.",["Backend for Frontend"]),
-N("ven",806,322,"tra","Pod de ventas","Amazon EKS","Google Kubernetes Engine","compromiso de venta","pod de dominio","pod de dominio",
-  "Toma el pedido y abre la transacción. El compromiso y la reserva ocurren dentro de una sola transacción relacional: a 300 operaciones por minuto, la coordinación distribuida añade complejidad sin beneficio.",["Contenedores con descubrimiento","CQRS"]),
-N("inv",806,400,"tra","Pod de inventario","Amazon EKS","Google Kubernetes Engine","reserva FEFO","pod de dominio","pod de dominio",
+N("ven",806,322,"tra","Pod de ventas","Amazon EKS","GKE","compromiso de venta","pod de dominio","pod de dominio",
+  "Toma el pedido y abre la transacción. El compromiso y la reserva ocurren dentro de una sola transacción relacional: a 300 operaciones por minuto, la coordinación distribuida añade complejidad sin beneficio.",["Contenedores con descubrimiento"]),
+N("inv",806,400,"tra","Pod de inventario","Amazon EKS","GKE","reserva FEFO","pod de dominio","pod de dominio",
   "Reserva existencias por lote y fecha de vencimiento con criterio de primero en vencer, primero en salir. También recibe la orden de acordonar un lote cuando entra una alarma térmica.",["Contenedores con descubrimiento","CQRS"]),
-N("cat",806,478,"tra","Pod de catálogo","Amazon EKS","Google Kubernetes Engine","solo lectura","pod de dominio","pod de dominio",
+N("cat",806,478,"tra","Pod de catálogo","Amazon EKS","GKE","solo lectura","pod de dominio","pod de dominio",
   "Resuelve el 85 % de las operaciones: consultas de disponibilidad y precio. Es el único componente que toca la caché, y nunca la usa para comprometer una venta.",["Contenedores con descubrimiento","Caching","CQRS"]),
-N("desp",806,556,"tra","Pod de despacho","Amazon EKS","Google Kubernetes Engine","hoja de ruta","pod de dominio","pod de dominio",
-  "Consume el trabajo encolado y arma la hoja de ruta. Encolar en lugar de ejecutar dentro de la transacción es lo que permite absorber los dos picos diarios sin dimensionar todo para el pico.",["Contenedores con descubrimiento","Producer–Consumer"]),
+N("desp",806,556,"tra","Pod de despacho","Amazon EKS","GKE","hoja de ruta","pod de dominio","pod de dominio",
+  "Consume el trabajo encolado y arma la hoja de ruta. Encolar en lugar de ejecutar dentro de la transacción es lo que permite absorber los dos picos diarios sin dimensionar todo para el pico.",["Contenedores con descubrimiento","Producer–Consumer","Anti-Corruption Layer"]),
 N("cola",806,634,"tra","Cola de trabajos","Amazon SQS","Suscripción de Pub/Sub","con reintentos","cola de mensajes fallidos","con reintentos",
   "Desacopla el compromiso de venta del trabajo de despacho. Si el despacho falla, el pedido ya está confirmado y el trabajo se reintenta sin perderse.",["Producer–Consumer"]),
-N("db",1004,346,"tra","Motor relacional","RDS para PostgreSQL · Multi-AZ","Cloud SQL · Enterprise Plus","escrituras","réplica síncrona","alta disponibilidad regional",
-  "Único lugar donde se escribe. La reserva por lote y vencimiento es atómica aquí, y de su registro de transacciones sale la captura de cambios hacia el lago.",["CQRS","Almacenamiento por bloques"]),
-N("rep",1004,452,"tra","Réplicas de lectura","Réplica de lectura de RDS","Grupo de lectura de Cloud SQL","lecturas","lecturas","lecturas",
+N("db",1004,346,"tra","Motor relacional","RDS PostgreSQL Multi-AZ","Cloud SQL Enterprise+","escrituras","réplica síncrona","alta disponibilidad regional",
+  "Único lugar donde se escribe. La reserva por lote y vencimiento es atómica aquí, y de su registro de transacciones sale la captura de cambios hacia el lago. Sus credenciales y su llave de cifrado viven en la bóveda.",["CQRS","Almacenamiento por bloques","Security Vault Key"]),
+N("rep",1004,452,"tra","Réplicas de lectura","Réplicas de RDS","Read pool de Cloud SQL","lecturas","lecturas","lecturas",
   "Absorben las consultas de catálogo para que el primario quede libre de escribir. Es lo que hace alcanzable el objetivo de 400 milisegundos en el percentil 95.",["CQRS"]),
 N("cch",1004,558,"tra","Caché distribuida","ElastiCache for Valkey","Memorystore for Valkey","precio y disponibilidad","precio y disponibilidad","precio y disponibilidad",
   "Guarda precio por convenio y disponibilidad agregada, con tolerancia a unos segundos de desfase. Sirve para navegar el catálogo; el compromiso de venta nunca la lee.",["Caching"]),
-N("cdc",1180,346,"tra","Captura de cambios","EventBridge Pipes y Firehose","Debezium en el clúster","lee el registro","desde la tabla de salida","Datastream no publica en Pub/Sub",
-  "Publica cada cambio confirmado leyendo el registro de transacciones, no consultando las tablas. Por eso no compite con la toma de pedido y además ve los borrados.",["Change Data Capture"]),
-N("nat",1004,664,"tra","Egreso con dirección fija","NAT Gateway","Cloud NAT","IP en lista blanca","una salida, IP fija","una salida, IP fija",
-  "Única salida hacia el operador logístico, con dirección fija en lista blanca y túnel de identidad mutua. Aísla el resto de la plataforma de ese sistema heredado.",["Anti-Corruption Layer"]),
+N("cdc",1180,346,"tra","Captura de cambios","AWS DMS + Data Firehose","Debezium en el clúster","lee el registro","modo CDC sobre el WAL","publica en Pub/Sub",
+  "Lee el registro de transacciones en lugar de consultar las tablas, así que ve también los borrados y no compite con la toma de pedido. En Google Cloud se resuelve con Debezium dentro del clúster porque Datastream no publica en Pub/Sub.",["Change Data Capture"]),
+N("nat",1004,664,"tra","Egreso con IP fija","NAT Gateway","Cloud NAT","IP en lista blanca","una salida, IP fija","una salida, IP fija",
+  "Única salida hacia el operador logístico, con dirección fija en lista blanca y túnel de identidad mutua. Aísla el resto de la plataforma de ese sistema heredado.",["Bulkhead"]),
 N("onp",1180,664,"tra","Operador logístico","Operador logístico","Operador logístico","on-premise","API privada","API privada",
   "No se migra. Su API privada se queda en el centro de datos del operador, así que la arquitectura contempla un egreso controlado en lugar de absorberlo.",[]),
 /* analítico */
@@ -746,10 +801,10 @@ N("catd",200,940,"ana","Catálogo y linaje","AWS Glue Data Catalog","Dataplex","
   "Sin catálogo, la separación de fronteras de datos se perdería en el lago, que volvería a ser un esquema compartido con otro nombre.",["Catálogo y linaje del dato"]),
 N("vec",528,940,"ana","Índice vectorial","OpenSearch · vectorial","Vertex AI Vector Search","fragmenta y vectoriza","índice vectorial","índice vectorial",
   "Fragmenta y vectoriza la zona curada: rotación por lote, ventanas de vencimiento e histórico de reposición.",["Generación aumentada por recuperación"]),
-N("inf",692,940,"ana","Servicio de inferencia","Amazon Bedrock","Vertex AI · Gemini","punto final privado","punto final privado","punto final privado",
+N("inf",692,940,"ana","Inferencia","Amazon Bedrock","Vertex AI Gemini","punto final privado","punto final privado","punto final privado",
   "Recibe los fragmentos recuperados como contexto y devuelve la sugerencia. Se elige recuperación sobre ajuste fino porque el dato cambia a diario y la cita del origen es requisito de auditoría.",["Machine Learner","Generación aumentada por recuperación"]),
 N("asi",856,940,"ana","Pod asistente","EKS · asistente","GKE · asistente","cita el origen","pod de dominio","pod de dominio",
-  "Devuelve al comercial qué reponer, citando el lote y el histórico que sustentan la sugerencia. Ataca la mayor exposición económica: el producto que se vence sin rotar.",["Contenedores con descubrimiento","Machine Learner"])
+  "Devuelve al comercial qué reponer, citando el lote y el histórico que sustentan la sugerencia. Ataca la mayor exposición económica: el producto que se vence sin rotar.",["Contenedores con descubrimiento","Generación aumentada por recuperación"])
 ];
 var BANDS=[
  {id:"tel",x:22,y:56,w:1392,h:206,t:"Plano de telemetría · cadena de frío en tiempo real",c:"--tel"},
@@ -766,6 +821,8 @@ var EDGES=[
  E("flu","ser","serie cruda","frio"),
  E("fri","ala","17 lecturas · 240 s","frio"),
  E("ala","ope","aviso al operario","frio"),
+ E("reloj","est","barre la última marca","frio"),
+ E("reloj","ala","silencio de 60 s","frio",[[430,186],[430,268],[926,268],[926,162]]),
  E("ala","inv","ordena acordonar el lote","frio",[[922,162],[922,232],[1330,232],[1330,425],[938,425]]),
  E("ser","bruta","descarga periódica al lago","ana",[[594,236],[594,268],[14,268],[14,867],[36,867]]),
  E("cli","cdn","HTTPS","pedido"),
@@ -773,12 +830,13 @@ var EDGES=[
  E("waf","apub","reglas OWASP","pedido"),
  E("apub","bffp","testigo validado","pedido"),
  E("intr","dx","intranet corporativa","pedido"),
- E("dx","alb","enlace dedicado · mTLS","pedido"),
+ E("dx","alb","enlace dedicado","pedido"),
  E("alb","apriv","sin dirección pública","pedido"),
  E("apriv","bffc","federación corporativa","pedido"),
  E("apriv","bffo","sesión de operación","pedido"),
  E("apriv","bffa","consultas agregadas","pedido"),
  E("bffp","ven","pedido","pedido"),
+ E("bffp","cat","disponibilidad y precio","pedido"),
  E("bffc","cat","catálogo","pedido"),
  E("bffo","desp","despacho","pedido"),
  E("ven","inv","reserva FEFO","pedido"),
@@ -792,6 +850,7 @@ var EDGES=[
  E("nat","onp","IP fija · mTLS extremo a extremo","pedido"),
  E("db","rep","replicación","pedido"),
  E("db","cdc","captura de cambios","ana"),
+ E("cdc","cch","invalida la caché","pedido",[[1246,396],[1246,583],[1136,583]]),
  E("cdc","bruta","eventos de cambio al lago","ana",[[1312,371],[1312,760],[14,760],[14,857],[36,857]]),
  E("bruta","etl","crudo","ana"),
  E("etl","cura","normalizado","ana"),
@@ -860,10 +919,11 @@ function route(e){
   return "M"+sx+" "+acy+" L"+mx+" "+acy+" L"+mx+" "+bcy+" L"+ex+" "+bcy;
 }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;") }
+function render0(){ render() }
 function render(){
   var vb = (view==="tobe") ? "0 0 1436 1060" : "0 0 1024 440";
   svg.setAttribute("viewBox",vb);
-  svg.style.minWidth = (view==="tobe") ? "1120px" : "860px";
+  svg.setAttribute("preserveAspectRatio","xMidYMid meet");
   var o='<defs>';
   ["tel","tra","ana","ln"].forEach(function(k){
     var c = k==="ln" ? css("--line-2") : css(FCOL[k==="tel"?"frio":k==="tra"?"pedido":"ana"]);
@@ -880,8 +940,8 @@ function render(){
     var mk = e.f==="frio"?"m-tel":e.f==="pedido"?"m-tra":"m-ana";
     o+='<path class="ed" id="e'+i+'" data-f="'+e.f+'" d="'+d+'" marker-end="url(#'+mk+')"/>';
   });
-  edges.forEach(function(e,i){
-    if(!e.l||!e._d) return;
+  if(flow!=="all") edges.forEach(function(e,i){
+    if(!e.l||!e._d||e.f!==flow) return;
     var a=nodeById(e.a),b=nodeById(e.b); if(!a||!b) return;
     var lx,ly;
     if(e.p){ var mid=e.p[Math.floor(e.p.length/2)]; lx=mid[0]; ly=mid[1]-6; }
@@ -910,8 +970,8 @@ function relabel(){
   nodes.forEach(function(n){
     var g=$('#arch .nd[data-id="'+n.id+'"]'); if(!g) return;
     var t=g.querySelector(".tt"), s=g.querySelector(".ss");
-    t.textContent=fit(n.L[lens]||n.L.agn,24);
-    s.textContent=fit(n.S[lens]||n.S.agn,26);
+    t.textContent=fit(n.L[lens]||n.L.agn,21);
+    s.textContent=fit(n.S[lens]||n.S.agn,24);
     g.setAttribute("aria-label",(n.L[lens]||n.L.agn));
   });
 }
@@ -991,7 +1051,7 @@ function show(id){
   $("#insGcp").textContent=n.L.gcp;
   $("#insP").innerHTML = n.pats.length ? n.pats.map(function(p){return '<span>'+esc(p)+'</span>'}).join("") : '<span>Sin patrón asociado</span>';
 }
-function select(id){ selId=(selId===id)?null:id; show(id); applyFilter() }
+function select(id){ selId=(selId===id)?null:id; $("#insp").classList.toggle("on",!!selId); show(id); applyFilter() }
 render();
 
 $$('[data-view]').forEach(function(c){ c.addEventListener("click",function(){
@@ -1014,37 +1074,37 @@ $$('[data-lens]').forEach(function(c){ c.addEventListener("click",function(){
 $$('[data-flow]').forEach(function(c){ c.addEventListener("click",function(){
   $$('[data-flow]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
   flow=c.dataset.flow; patSel=null; probSel=null; clearProb(); $$("#pats .pat").forEach(function(p){p.classList.remove("on")});
-  applyFilter(); buildParticles();
+  applyFilter(); buildParticles(); if(flow!=="all") render0();
 })});
 
 /* ───── problemática ───── */
 var PROB=[
  ["Portal e inventario comparten tablas",
-  "El bloqueo pesimista degrada el sistema por encima de 120 operaciones por minuto.",
-  "Cada dominio es un pod con su propia frontera de datos. El pod de inventario es el único que reserva, y lo hace de forma atómica por lote y vencimiento dentro de una sola transacción, sin bloquear la tabla completa.",
+  "Se degrada por encima de 120 ops/min.",
+  "El pod de inventario es el único que reserva, y lo hace de forma atómica por lote y vencimiento, sin bloquear la tabla. Ventas e inventario comparten la transacción a propósito: a 300 ops/min la coordinación distribuida costaría más de lo que resuelve.",
   ["bffp","ven","inv","db"]],
  ["El cliente no consulta inventario directamente",
-  "El comercial trabaja con información del día anterior; solo el 35 % de la fuerza comercial tiene datos actualizados.",
+  "El comercial vende con datos de ayer.",
   "Portal propio por Internet, servido desde el borde, con disponibilidad y precio de convenio en línea. La consulta va a réplicas y a la caché, nunca al primario.",
   ["cli","cdn","waf","apub","bffp","cat","rep","cch"]],
  ["La temperatura se consulta cada hora",
-  "Una desviación térmica puede conocerse demasiado tarde para salvar el producto.",
+  "La desviación se conoce demasiado tarde.",
   "Un pod conector se suscribe hacia afuera al flujo del proveedor y la regla se evalúa en flujo, con estado por cámara. La decimoséptima lectura fuera de rango llega a los 240 segundos.",
-  ["prov","con","ing","flu","fri","est","ala","ope"]],
+  ["prov","con","ing","flu","fri","est","reloj","ala","ope"]],
  ["126 millones de lecturas en la base transaccional",
-  "La analítica compite por recursos con la toma de pedido.",
+  "La analítica compite con los pedidos.",
   "La serie cruda se escribe en un almacén de series de tiempo, alimentado por un segundo consumidor del mismo flujo. El esquema transaccional deja de cargar con la telemetría.",
   ["flu","ser","bruta"]],
  ["Todos los módulos comparten el mismo esquema",
-  "No se pueden migrar ni liberar de forma independiente.",
-  "Un pod por dominio, cada uno dueño de sus datos. Eso es lo que permite cortar el sistema por partes y migrar dominio por dominio, empezando por la reportería nocturna.",
+  "No se puede liberar por partes.",
+  "Un pod por dominio, cada uno con su propio esquema y sin acceso cruzado. Eso permite cortar el sistema por partes y migrar dominio por dominio, empezando por la reportería nocturna.",
   ["ven","inv","cat","desp","asi","bffp","bffc","bffo","bffa"]],
  ["Un solo centro de cómputo",
-  "Punto único de falla, con una réplica de conmutación manual sin probar en diecinueve meses.",
-  "Despliegue en tres zonas de disponibilidad con réplica síncrona y conmutación automática: 15 minutos de recuperación y un minuto de pérdida máxima. La plataforma se declara como infraestructura como código.",
+  "Punto único de falla, sin réplica probada.",
+  "Despliegue multizona con réplica síncrona y conmutación automática, y toda la plataforma declarada como infraestructura como código. Cumple con holgura el objetivo acordado de 15 minutos de recuperación y un minuto de pérdida.",
   ["db","rep","cch"]],
  ["Reportes nocturnos",
-  "La analítica tarda de tres a cinco días en entregar un consolidado.",
+  "Tres a cinco días por informe.",
   "Captura de cambios continua desde el registro de transacciones hacia el lago, y consulta interactiva sobre el almacén analítico. Es además el primer componente que se migra.",
   ["db","cdc","bruta","etl","cura","alm","bffa"]]
 ];
@@ -1073,50 +1133,55 @@ function clearProb(){ $$("#probList .prow").forEach(function(x){x.classList.remo
 
 /* ───── patrones ───── */
 var PAT=[
- ["app","API Gateway","Punto de entrada único por canal, con autenticación, control de tasa y observación del tráfico. Hay dos instancias porque los dos canales tienen superficies e identidades distintas."],
- ["app","Backend for Frontend","Una fachada por tipo de consumidor. El portal necesita disponibilidad agregada en una llamada; la terminal de bodega necesita lote y ubicación."],
- ["app","Producer–Consumer","Desacopla la producción del consumo. La telemetría se publica una vez y se consume con estado; el despacho se encola en lugar de ejecutarse dentro de la transacción."],
- ["app","Publish–Subscribe","Un mismo evento alcanza varios destinos sin que el emisor los conozca: la alarma sale al operario y al pod de inventario."],
- ["app","Bulkhead","Aísla recursos para que una tormenta de telemetría no agote la capacidad de la toma de pedido. Cuota y compartimento propios."],
- ["app","Contenedores con descubrimiento","Cada dominio es una unidad de despliegue independiente. Es el vehículo del agnosticismo: un clúster conforme existe en las dos nubes."],
- ["app","Anti-Corruption Layer","Traduce el modelo de un tercero antes de que entre al dominio. Aparece dos veces: hacia el proveedor de sensores y hacia el operador logístico."],
- ["app","Static Content Hosting","El portal se sirve como contenido estático desde el borde, sin consumir capacidad del clúster ni de la base de datos."],
- ["app","Machine Learner","La inferencia es un servicio gestionado con punto final privado, no un modelo embebido en la aplicación."],
- ["dat","CQRS","Separa escritura de lectura. El 85 % de las operaciones son consultas, y llevarlas a réplicas libera al primario para el compromiso de venta."],
- ["dat","Caching","Precio por convenio y disponibilidad agregada, con tolerancia a segundos de desfase. Solo para navegar: el compromiso de venta nunca lee la caché."],
- ["dat","Time-Series Store","Conserva la serie cruda fuera del esquema transaccional, con trece meses de retención para la auditoría sanitaria."],
- ["dat","Key-Value Store","Lectura y escritura atómicas de un documento en pocos milisegundos, 480 veces cada quince segundos. Es el contador que sobrevive al reinicio."],
- ["dat","Almacenamiento por objetos","Durabilidad alta sin administración y clases de acceso para mover la evidencia antigua a almacenamiento frío sin tocar la aplicación."],
- ["dat","Almacenamiento por bloques","Acceso por bloque con baja latencia para los volúmenes de los nodos y del motor relacional. Los pods de dominio son sin estado a propósito."],
- ["dat","Data Lakehouse por zonas","Zona bruta reprocesable y zona curada en formato columnar abierto, que además es la garantía de portabilidad entre proveedores."],
- ["dat","Change Data Capture","Publica cada cambio confirmado leyendo el registro de transacciones, no consultando las tablas. Ve los borrados y no compite con la venta."],
- ["dat","Catálogo y linaje del dato","Registra esquema, origen y transformación con permisos por dominio. Evita que el lago vuelva a ser un esquema compartido."],
- ["dat","Generación aumentada por recuperación","Recupera de la zona curada y entrega como contexto a la inferencia. Se elige sobre el ajuste fino porque el dato cambia a diario y la cita es requisito de auditoría."],
- ["dat","Security Vault Key","Credenciales, llaves y certificados en una bóveda con rotación automática. Ningún secreto viaja en la imagen del contenedor."]
+ ["app","API Gateway","Una puerta por canal","Dos instancias, pública y privada: los dos canales tienen superficies e identidades distintas."],
+ ["app","Backend for Frontend","Una fachada por consumidor","El portal pide disponibilidad agregada; la terminal de bodega pide lote y ubicación."],
+ ["app","Producer–Consumer","Producir y consumir por separado","La telemetría se publica una vez; el despacho se encola en lugar de ejecutarse en la transacción."],
+ ["app","Publish–Subscribe","Un evento, varios destinos","La alarma sale al operario y al pod de inventario sin que el emisor los conozca."],
+ ["app","Bulkhead","Aislar para no contagiar","Una tormenta de telemetría no puede agotar la capacidad de la toma de pedido."],
+ ["app","Contenedores con descubrimiento","Un dominio, una unidad","Es el vehículo del agnosticismo: un clúster conforme existe en las dos nubes."],
+ ["app","Anti-Corruption Layer","El modelo ajeno se queda afuera","Dos veces: hacia el proveedor de sensores y hacia el operador logístico."],
+ ["app","Static Content Hosting","El portal no toca el clúster","Se sirve desde el borde, sin consumir capacidad de cómputo ni de base de datos."],
+ ["app","Machine Learner","La inferencia es un servicio","Gestionada, con punto final privado, no un modelo embebido en la aplicación."],
+ ["dat","CQRS","Escribir y leer por caminos distintos","El 85 % son consultas: llevarlas a réplicas libera al primario para el compromiso de venta."],
+ ["dat","Caching","Rápido para mirar, exacto para vender","Precio y disponibilidad agregada toleran segundos de desfase; la venta nunca lee la caché."],
+ ["dat","Time-Series Store","La serie sale del transaccional","Trece meses de retención para la auditoría sanitaria, fuera del esquema de pedidos."],
+ ["dat","Key-Value Store","Un contador que sobrevive al reinicio","Lectura y escritura atómicas en milisegundos, 480 veces cada quince segundos."],
+ ["dat","Almacenamiento por objetos","Barato, durable y portátil","Las dos zonas del lago y la evidencia sanitaria, con clases de acceso para lo antiguo."],
+ ["dat","Almacenamiento por bloques","Baja latencia donde hace falta","Volúmenes de los nodos y del motor relacional. Los pods son sin estado a propósito."],
+ ["dat","Data Lakehouse por zonas","Bruta para reprocesar, curada para consultar","El formato columnar abierto es además la garantía de portabilidad entre nubes."],
+ ["dat","Change Data Capture","Leer el registro, no las tablas","Ve los borrados, no compite con la venta y reemplaza la extracción nocturna."],
+ ["dat","Catálogo y linaje del dato","El lago con dueño","Esquema, origen y permisos por dominio, para que no vuelva a ser un esquema compartido."],
+ ["dat","Generación aumentada por recuperación","Sugerir citando la fuente","Se elige sobre el ajuste fino porque el dato cambia a diario y la cita es requisito de auditoría."],
+ ["dat","Security Vault Key","Ningún secreto en la imagen","Credenciales, llaves y certificados en una bóveda con rotación automática."]
 ];
-function drawPats(f){
+function drawPats(){
   var box=$("#pats"); box.innerHTML="";
-  PAT.filter(function(p){return f==="all"||p[0]===f}).forEach(function(p){
-    var b=document.createElement("button"); b.className="pat"; b.type="button"; b.dataset.p=p[1];
-    b.innerHTML='<span class="nm"><i class="kd" style="background:var(--'+(p[0]==="app"?"tra":"ana")+')"></i>'+esc(p[1])+'</span><span class="ds">'+esc(p[2])+'</span>';
-    b.addEventListener("click",function(){
-      var was=b.classList.contains("on");
-      $$("#pats .pat").forEach(function(x){x.classList.remove("on")});
-      probSel=null; clearProb();
-      if(was){ patSel=null } else { b.classList.add("on"); patSel=p[1];
-        if(view!=="tobe"){ $$('[data-view]')[0].click(); b.classList.add("on"); patSel=p[1] }
-        document.getElementById("arquitectura").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
-      }
-      applyFilter();
+  [["app","Patrones de aplicación","--tra"],["dat","Patrones de datos y almacenamiento","--ana"]].forEach(function(g){
+    var h=document.createElement("div"); h.className="patgrp";
+    h.innerHTML='<i style="background:var('+g[2]+')"></i>'+g[1];
+    box.appendChild(h);
+    var grid=document.createElement("div"); grid.className="pat-grid"; grid.style.marginTop="0";
+    PAT.filter(function(p){return p[0]===g[0]}).forEach(function(p){
+      var b=document.createElement("button"); b.className="pat"; b.type="button";
+      b.innerHTML='<span class="nm">'+esc(p[1])+'</span><span class="ds">'+esc(p[2])+'</span><span class="ds2">'+esc(p[3])+'</span>';
+      b.addEventListener("click",function(){
+        var was=b.classList.contains("on");
+        $$("#pats .pat").forEach(function(x){x.classList.remove("on")});
+        probSel=null; clearProb();
+        if(was){ patSel=null } else {
+          b.classList.add("on"); patSel=p[1];
+          if(view!=="tobe"){ $$('[data-view]')[0].click(); b.classList.add("on"); patSel=p[1] }
+          document.getElementById("arquitectura").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+        }
+        applyFilter();
+      });
+      grid.appendChild(b);
     });
-    box.appendChild(b);
+    box.appendChild(grid);
   });
 }
-drawPats("all");
-$$('#patrones [data-filter]').forEach(function(c){ c.addEventListener("click",function(){
-  $$('#patrones [data-filter]').forEach(function(x){x.classList.remove("on")}); c.classList.add("on");
-  patSel=null; probSel=null; clearProb(); applyFilter(); drawPats(c.dataset.filter);
-})});
+drawPats();
+
 
 /* ───── costos ───── */
 var COST=[
@@ -1184,6 +1249,25 @@ lbStage.addEventListener("pointermove",function(e){if(!dg)return;zx+=e.clientX-p
 ["pointerup","pointercancel"].forEach(function(t){lbStage.addEventListener(t,function(){dg=false;lbStage.classList.remove("drag")})});
 lbStage.addEventListener("dblclick",function(e){var r=lbStage.getBoundingClientRect();lbZoom(1.8,e.clientX-r.left,e.clientY-r.top)});
 addEventListener("resize",function(){if(lb.classList.contains("on"))lbFit()});
+
+$("#zoomArch").addEventListener("click",function(){
+  var svgEl=$("#arch"), vb=(svgEl.getAttribute("viewBox")||"0 0 1436 1060").split(/\s+/);
+  var w=parseFloat(vb[2]), h=parseFloat(vb[3]), esc3=new XMLSerializer().serializeToString(svgEl);
+  var hoja="";
+  Array.prototype.forEach.call(document.styleSheets,function(ss){
+    try{ Array.prototype.forEach.call(ss.cssRules,function(r){
+      var t=r.cssText||""; if(/\.nd|\.ed|\.el|\.band|\.pt|:root/.test(t)) hoja+=t+"\n";
+    })}catch(err){}
+  });
+  var doc='<svg xmlns="http://www.w3.org/2000/svg" width="'+w*1.6+'" height="'+h*1.6+'" viewBox="0 0 '+w+' '+h+'">'
+        + '<style>'+hoja+'</style><rect width="'+w+'" height="'+h+'" fill="'+css("--bg")+'"/>'
+        + esc3.replace(/^<svg[^>]*>/,"").replace(/<\/svg>$/,"") + '</svg>';
+  var url=URL.createObjectURL(new Blob([doc],{type:"image/svg+xml"}));
+  lastFocus=this; $("#lbTitle").textContent="Arquitectura objetivo · "+({agn:"agnóstica",aws:"AWS us-east-1",gcp:"Google Cloud us-central1"}[lens]);
+  lbImg.alt="Arquitectura"; lbImg.src=url; lb.classList.add("on");
+  lbImg.onload=function(){ nat=[w*1.6,h*1.6]; lbImg.style.width=nat[0]+"px"; lbFit() };
+  $("#lbClose").focus();
+});
 
 addEventListener("keydown",function(e){
   if(lb.classList.contains("on")){
