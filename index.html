@@ -345,6 +345,11 @@ main>section::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:99p
   #arquitectura .canvas-box{overflow:auto;max-height:none;-webkit-overflow-scrolling:touch}
   #arquitectura #arch{height:60vh;width:auto;max-width:none;min-width:100%}
 }
+/* conclusiones */
+.concl{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;max-width:none}
+.concl li{position:relative;padding-left:22px;color:var(--ink);font-size:1rem;line-height:1.5;max-width:92ch}
+.concl li::before{content:"";position:absolute;left:0;top:.52em;width:8px;height:8px;border-radius:99px;
+  background:var(--tel)}
 #deckbar{position:fixed;right:18px;bottom:16px;z-index:55;display:flex;gap:7px;align-items:center;
   background:var(--surface);border:1px solid var(--line-2);border-radius:99px;
   padding:5px 8px;box-shadow:var(--shadow)}
@@ -580,13 +585,8 @@ main>section::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:99p
 
 <section id="cierre"><div class="wrap">
   <div class="eyebrow">Cierre</div>
-  <h2>Cuatro lecciones</h2>
-  <div class="grid g4" style="margin-top:16px">
-    <div class="card"><h3>La región la define la ley</h3><p>Estados Unidos figura entre los países con nivel adecuado de protección; Brasil no. La región más lejana era además la más barata.</p></div>
-    <div class="card"><h3>El agnosticismo termina en el detalle</h3><p>Cada nube obligó a un ajuste: Debezium en el clúster, Apigee en lugar de API Gateway.</p></div>
-    <div class="card"><h3>El costo está en lo que no se dibuja</h3><p>Red privada, endpoints y entornos facturados por hora, no el cómputo ni la base de datos.</p></div>
-    <div class="card"><h3>No era capacidad, era estructura</h3><p>Por eso la propuesta separa planos y establece fronteras por dominio en lugar de trasladar módulos.</p></div>
-  </div>
+  <h2>Conclusiones</h2>
+  <ul class="concl"><li>El sistema de hoy no aguanta el crecimiento: un solo centro de cómputo, un solo esquema compartido y un motor con fin de soporte.</li><li>Proponemos una arquitectura en la nube con tres planos de red separados y un servicio por dominio.</li><li>La telemetría deja de competir con los pedidos: se evalúa en flujo y la alarma llega en menos de 4 minutos.</li><li>La consulta de disponibilidad se resuelve en réplicas y caché, para cumplir los 400 ms en el percentil 95.</li><li>El mismo diseño se lleva a AWS y a Google Cloud: cambian los servicios, no la lógica de la solución.</li><li>Las dos regiones cumplen la Ley 1581: AWS us-east-1 cuesta &#8776; 2&#8239;961 USD al mes y Google Cloud us-central1 &#8776; 3&#8239;499.</li><li>La migración empieza por la reportería nocturna y la cadena de frío, que es donde está el riesgo del negocio.</li></ul>
   <p class="cierre-final">Cuatro minutos. <em>No una hora.</em></p>
   <p class="lede" style="margin-top:18px;font-size:.84rem;max-width:none;color:var(--ink-3)">Ariel Leonardo Molina Viteri · Camilo Alejandro Nossa Calderón · David Santiago Guasca Nova · David Felipe Laverde Parra</p>
 </div></section>
